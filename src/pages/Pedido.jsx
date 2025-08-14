@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import {
   Box,
   Typography,
@@ -22,7 +22,13 @@ const Pedido = () => {
   const [numeroMesa, setNumeroMesa] = useState("");
   const [endereco, setEndereco] = useState("");
   const { pizzas } = usePizzas();
-  const { pedidos } = usePedidos();
+  const { pedidos, createPedido} = usePedidos();
+
+  useEffect(() => {
+    const carrinhoSalvo = JSON.parse(localStorage.getItem("carrinho")) || [];
+    setCarrinho(carrinhoSalvo);
+  }, []);
+
 
   const handleQuantidadeChange = (index, novaQtd) => {
     const atualizado = [...carrinho];
@@ -81,11 +87,7 @@ const Pedido = () => {
         pedidos.length ? Math.max(...pedidos.map(p => Number(p.id))) + 1 : 1
       );
 
-      await fetch("http://localhost:3001/pedidos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...novoPedido, id: nextId })
-      });
+      createPedido(nextId,novoPedido);
 
       localStorage.removeItem("carrinho");
       toast.success("Pedido realizado com sucesso!", {autoClose: 3000});

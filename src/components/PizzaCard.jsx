@@ -19,6 +19,9 @@ const PizzaCard = () => {
   const [quantidade, setQuantidade] = useState(1);
   const [tamanho, setTamanho] = useState('Média');
   const [observacoes, setObservacoes] = useState('');
+
+
+  
   
   const handleAbrirDetalhes = (pizza) => {
     setPizzaSelecionada(pizza);

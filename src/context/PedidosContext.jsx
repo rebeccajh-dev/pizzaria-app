@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState,  } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 
 const PedidosContext = createContext();
@@ -16,7 +16,7 @@ export function PedidosProvider({ children }) {
       const data = await res.json();
       setPedidos(data);
     } catch (error) {
-        toast.error("Erro ao carregar pedidos:", error);
+      toast.error("Erro ao carregar pedidos:", error);
     }
   };
 
@@ -29,16 +29,30 @@ export function PedidosProvider({ children }) {
       });
       fetchPedidos();
     } catch (error) {
-        toast.error("Erro ao atualizar status:", error);
+      toast.error("Erro ao atualizar status:", error);
     }
   };
+
+  const createPedido = async (nextId, novoPedido) =>{
+    try {
+      await fetch(`${baseUrl}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...novoPedido, id: nextId })
+      });
+      fetchPedidos(); // Atualiza lista
+    } catch (err) {
+      toast.error("Erro ao adicionar novo pedido", err)
+    }
+  }
+
 
   useEffect(() => {
     fetchPedidos();
   }, []);
 
   return (
-    <PedidosContext.Provider value={{ pedidos, fetchPedidos, updatePedidoStatus }}>
+    <PedidosContext.Provider value={{ pedidos, fetchPedidos, updatePedidoStatus, createPedido }}>
       {children}
     </PedidosContext.Provider>
   );
