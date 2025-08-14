@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import {
   AppBar, Toolbar, Typography, Box, Button
 } from "@mui/material";
 import PizzaCard from "../components/PizzaCard";
 import { toast } from "react-toastify";
+import { usePizzas } from "../context/PizzasContext";
 
 const Cardapio = () => {
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado")) || {};
-  const [pizzas, setPizzas] = useState([]);
   const [filtrosAtivos, setFiltrosAtivos] = useState([]);
+  const { pizzas } = usePizzas();
 
   const botoes = [
     { id: 1, label: "Tradicional" },
@@ -31,13 +32,6 @@ const Cardapio = () => {
       autoClose: 3000,
     });
   };
-
-  useEffect(() => {
-    fetch("http://localhost:3002/pizzas")
-      .then(res => res.json())
-      .then(data => setPizzas(data || []))
-      .catch(err => console.error("Erro ao carregar pizzas:", err));
-  }, []);
 
   const pizzasFiltradas =
     filtrosAtivos.length > 0

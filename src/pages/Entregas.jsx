@@ -1,29 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Box, Tabs, Tab, Paper } from "@mui/material";
 import OrdersList from "../components/OrderList";
 import DetalhesPedido from "../components/DetalhesPedido";
+import { usePizzas } from "../context/PizzasContext";
+import { usePedidos } from "../context/PedidosContext";
 
 const Entregas = () => {
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   const [tab, setTab] = useState(0);
-  const [pedidos, setPedidos] = useState([]);
   const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
-  const [pizzas, setPizzas] = useState([]);
-
-  useEffect(() => {
-    atualizarPedidos();
-    fetch("http://localhost:3001/pizzas")
-      .then((res) => res.json())
-      .then((data) => setPizzas(data))
-      .catch((err) => console.error("Erro ao carregar pizzas:", err));
-  }, []);
-
-  function atualizarPedidos() {
-    fetch("http://localhost:3001/pedidos")
-      .then(res => res.json())
-      .then(data => setPedidos(data))
-      .catch(err => console.error("Erro ao carregar pedidos:", err));
-  }
+  const { pizzas } = usePizzas();
+  const { pedidos, fetchPedidos } = usePedidos();
 
   const filteredOrders = () => {
   const pedidosFiltrados = pedidos.filter(
@@ -70,7 +57,7 @@ const Entregas = () => {
 
         <OrdersList
           pedidos={filteredOrders()}
-          onStatusChange={atualizarPedidos}
+          onStatusChange={fetchPedidos}
           onDetalhesClick={setPedidoSelecionado}
         />
       </Paper>
@@ -81,7 +68,7 @@ const Entregas = () => {
           pedido={pedidoSelecionado}
           pizzas={pizzas}
           onClose={() => setPedidoSelecionado(null)}
-          onStatusChange={atualizarPedidos}
+          onStatusChange={fetchPedidos}
         />
 
       </Paper>

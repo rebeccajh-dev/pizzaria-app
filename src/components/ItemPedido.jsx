@@ -42,7 +42,6 @@ const ItemPedido = ({
         onChange={(e) => onQuantidadeChange(index, parseInt(e.target.value))}
         size="small"
         sx={{ width: 70 }}
-        inputProps={{ min: 1 }}
       />
 
       <IconButton color="error" onClick={() => onRemoverItem(index)}>

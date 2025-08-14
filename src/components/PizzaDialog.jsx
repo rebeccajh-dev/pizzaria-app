@@ -16,7 +16,7 @@ const schema = yup.object({
 
 const PizzaDialog = ({ open, onClose, onSave, editing }) => {
 
-  const { control, handleSubmit, watch, reset } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     resolver: yupResolver(schema),
     defaultValues: editing || {
       nome: "",

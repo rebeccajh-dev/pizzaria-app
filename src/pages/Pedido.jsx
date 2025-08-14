@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import {
   Box,
   Typography,
@@ -10,32 +10,19 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ItemPedido from "../components/ItemPedido"; 
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import { usePizzas } from "../context/PizzasContext";
+import { usePedidos } from "../context/PedidosContext";
 
 const Pedido = () => {
   const navigate = useNavigate();
-  const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado")) || {};
 
   const [carrinho, setCarrinho] = useState([]);
-  const [pizzas, setPizzas] = useState([]);
-  const [pedidos, setPedidos] = useState([]);
   const [tipoEntrega, setTipoEntrega] = useState("mesa");
   const [numeroMesa, setNumeroMesa] = useState("");
   const [endereco, setEndereco] = useState("");
-
-  useEffect(() => {
-    setCarrinho(JSON.parse(localStorage.getItem("carrinho")) || []);
-
-    fetch("http://localhost:3002/pizzas")
-      .then((res) => res.json())
-      .then((data) => setPizzas(data || []))
-      .catch((err) => console.error("Erro ao carregar pizzas:", err));
-
-    fetch("http://localhost:3001/pedidos")
-      .then((res) => res.json())
-      .then((data) => setPedidos(data || []))
-      .catch((err) => console.error("Erro ao carregar pedidos:", err));
-  }, []);
+  const { pizzas } = usePizzas();
+  const { pedidos } = usePedidos();
 
   const handleQuantidadeChange = (index, novaQtd) => {
     const atualizado = [...carrinho];

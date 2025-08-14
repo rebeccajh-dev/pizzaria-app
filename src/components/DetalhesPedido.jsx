@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -10,16 +10,12 @@ import {
   Chip
 } from "@mui/material";
 
-const DetalhesPedido = ({ pedido, onClose, onStatusChange }) => {
-  const [pizzas, setPizzas] = useState([]);
+import { usePizzas } from "../context/PizzasContext";
+import { usePedidos } from "../context/PedidosContext";
 
-  useEffect(() => {
-    fetch("http://localhost:3002/pizzas")
-      .then(res => res.json())
-      .then(data => setPizzas(data || []))
-      .catch(err => console.error("Erro ao carregar pizzas:", err));
-  }, []);
-
+const DetalhesPedido = ({ pedido, onClose }) => {
+  const { pizzas } = usePizzas();
+  const { updatePedidoStatus } = usePedidos();
 
   if (!pedido) {
     return (
@@ -46,21 +42,8 @@ const DetalhesPedido = ({ pedido, onClose, onStatusChange }) => {
     }
 
     if (novoStatus !== pedido.status) {
-      try {
-        await fetch(`http://localhost:3001/pedidos/${pedido.id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: novoStatus }),
-        });
-
-        // Atualiza a lista da tela
-        if (onStatusChange) onStatusChange();
-
-        // Fecha os detalhes
-        onClose();
-      } catch (err) {
-        console.error("Erro ao mudar status:", err);
-      }
+      await updatePedidoStatus(pedido.id, novoStatus);
+      onClose();
     }
   };
 
@@ -139,24 +122,23 @@ const DetalhesPedido = ({ pedido, onClose, onStatusChange }) => {
 
         <Divider sx={{ my: 1 }} />
         <Box flexDirection="row" display="flex" justifyContent="space-between">
-          <Typography variant="h6"  textAlign={"right"}>
+          <Typography variant="h6" textAlign={"right"}>
             Total
           </Typography>
           <Typography variant="h6" color="error" textAlign={"left"}>
-          R$ {pedido.total.toFixed(2).replace(".", ",")}
+            R$ {pedido.total.toFixed(2).replace(".", ",")}
           </Typography>
         </Box>
-        
 
-        {!(getButtonLabel() === "") &&(
-        <Button
-          fullWidth
-          variant="contained"
-          sx={{ mt: 2, backgroundColor: "#FF5A5F" }}
-          onClick={handleFinalizar}
-        >
-          {getButtonLabel()}
-        </Button>
+        {!(getButtonLabel() === "") && (
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 2, backgroundColor: "#FF5A5F" }}
+            onClick={handleFinalizar}
+          >
+            {getButtonLabel()}
+          </Button>
         )}
       </CardContent>
     </Card>

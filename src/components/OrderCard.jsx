@@ -1,5 +1,7 @@
 import React from "react";
 import { Card, CardContent, Typography, Button, Box, Chip } from "@mui/material";
+import { usePedidos } from "../context/PedidosContext";
+
 
 const statusColors = {
   mesa: "error",
@@ -14,28 +16,17 @@ const actionColors = {
   Finalizado : "rgba(36, 36, 36, 1)"
 };
 
-export default function OrderCard({ pedido, onStatusChange, onDetalhesClick }) {
+export default function OrderCard({ pedido, onDetalhesClick }) {
+  const { updatePedidoStatus } = usePedidos();
+
   const mudarStatusEDetalhes = async (pedido) => {
-  try {
     if (pedido.status !== "Novo") {
-      // Se não for "Novo", só abre os detalhes sem mudar status
       if (onDetalhesClick) onDetalhesClick(pedido);
       return;
     }
-
-    await fetch(`http://localhost:3001/pedidos/${pedido.id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status: "Em preparo" }),
-    });
-
-    if (onStatusChange) onStatusChange();
+    await updatePedidoStatus(pedido.id, "Em preparo");
     if (onDetalhesClick) onDetalhesClick({ ...pedido, status: "Em preparo" });
-  } catch (err) {
-    console.error("Erro ao mudar status:", err);
-  }
-};
-
+  };
 
   return (
     <Card variant="outlined" sx={{ mb: 1 }}>

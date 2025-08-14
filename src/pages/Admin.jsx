@@ -1,25 +1,19 @@
-import React, { useState, useEffect} from "react";
+import React, { useState} from "react";
 import { Box, Stack, Button, TableCell, Paper , TableContainer, Table, TableHead, TableRow, TableBody, CardActions} from "@mui/material";
 import { Add } from "@mui/icons-material";
 import PizzaDialog from "../components/PizzaDialog";
 
+import { usePizzas} from "../context/PizzasContext";
 
 const Admin = () => {
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+  const { pizzas, savePizza, deletePizza } = usePizzas();
 
-  const [pizzas, setPizzas] = useState([]);
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
 
   const API_URL = "http://localhost:3002/pizzas";
 
-  
-  useEffect(() => {
-    fetch(API_URL)
-      .then(res => res.json())
-      .then(data => setPizzas(data || []))
-      .catch(err => console.error("Erro ao carregar pizzas:", err));
-  }, []);
 
   const handleOpenCreate = () => {
     setEditing(null);
@@ -31,42 +25,12 @@ const Admin = () => {
     setOpen(true);
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Tem certeza que deseja deletar essa pizza?")) return;
-    try {
-      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-      setPizzas(prev => prev.filter(p => p.id !== id));
-    } catch (err) {
-      console.error("Erro ao deletar pizza:", err);
-    }
+  const handleDelete = (id) => {
+    deletePizza(id);
   };
 
   const handleSave = async (data) => {
-    try {
-      if (editing) {
-        await fetch(`${API_URL}/${editing.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...data, id: editing.id })
-        });
-      } else {
-        // Gerar próximo id como string
-        const nextId = String(
-          pizzas.length ? Math.max(...pizzas.map(p => Number(p.id))) + 1 : 1
-        );
-
-        await fetch(`${API_URL}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...data, id: nextId })
-        });
-        }
-      // Atualiza lista
-      const res = await fetch(API_URL);
-      setPizzas(await res.json());
-    } catch (err) {
-      console.error("Erro ao salvar pizza:", err);
-    }
+    await savePizza(data, editing);
     setOpen(false);
   };
 
