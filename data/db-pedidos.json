@@ -123,7 +123,7 @@
       "numeroMesa": "3",
       "endereco": null,
       "total": 89.88,
-      "status": "Novo"
+      "status": "Servir"
     },
     {
       "id": "5",
@@ -228,7 +228,7 @@
       "numeroMesa": "jdfksdfbsc",
       "endereco": null,
       "total": 39.48,
-      "status": "Novo"
+      "status": "Servir"
     },
     {
       "id": "9",
@@ -248,7 +248,7 @@
       "numeroMesa": "ajhdkabibad",
       "endereco": null,
       "total": 43.8,
-      "status": "Novo"
+      "status": "Servir"
     },
     {
       "id": "10",
@@ -268,7 +268,7 @@
       "numeroMesa": "ajjk",
       "endereco": null,
       "total": 39.48,
-      "status": "Novo"
+      "status": "Em preparo"
     },
     {
       "id": "11",
@@ -324,7 +324,7 @@
       "numeroMesa": null,
       "endereco": "Rua A, 1, Manoa",
       "total": 209.79999999999998,
-      "status": "Novo"
+      "status": "Em preparo"
     },
     {
       "id": "12",
@@ -353,6 +353,44 @@
       "numeroMesa": "34",
       "endereco": null,
       "total": 98.4,
+      "status": "Novo"
+    },
+    {
+      "id": "13",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "5",
+          "nome": "Chocolate com Morango",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "41.88",
+          "quantidade": 1,
+          "total": 41.879999999999995
+        },
+        {
+          "pizzaId": "6",
+          "nome": "Banana com Canela",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "37.80",
+          "quantidade": 1,
+          "total": 37.8
+        },
+        {
+          "pizzaId": "3",
+          "nome": "Frango com Catupiry",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "47.88",
+          "quantidade": 3,
+          "total": 143.64
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "2",
+      "endereco": null,
+      "total": 223.32,
       "status": "Novo"
     }
   ]

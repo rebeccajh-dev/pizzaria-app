@@ -15,16 +15,17 @@ const Cozinha = () => {
   const { pedidos, fetchPedidos } = usePedidos();
 
 
-  const filteredOrders = () => {
-  const pedidosFiltrados = pedidos.filter(
+ const filteredOrders = () => {
+  const pedidosAtivos = pedidos.filter(
     o => o.status === "Novo" || o.status === "Em preparo"
   );
 
-  if (tab === 0) return pedidosFiltrados;
-  if (tab === 1) return pedidosFiltrados.filter(o => o.status === "Novo");
-  if (tab === 2) return pedidosFiltrados.filter(o => o.status === "Em preparo");
+  // depois filtra conforme a aba
+  if (tab === 0) return pedidosAtivos; // Tudo = todos ativos
+  if (tab === 1) return pedidosAtivos.filter(o => o.status === "Novo");
+  if (tab === 2) return pedidosAtivos.filter(o => o.status === "Em preparo");
   return [];
-};
+  };
 
 
   if (!(usuarioLogado?.tipo === "funcionario")) {
