@@ -1,0 +1,218 @@
+{
+  "pizzas": [
+    {
+      "id": "1",
+      "nome": "Margherita",
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Manjericão fresco"
+      ],
+      "preco": 32.9,
+      "imagem": "margherita.jpg",
+      "categoria": "Tradicional"
+    },
+    {
+      "id": "2",
+      "nome": "Calabresa",
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Calabresa",
+        "Cebola"
+      ],
+      "preco": 36.5,
+      "imagem": "calabresa.jpg",
+      "categoria": "Tradicional"
+    },
+    {
+      "id": "3",
+      "nome": "Frango com Catupiry",
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Frango desfiado",
+        "Catupiry"
+      ],
+      "preco": 39.9,
+      "imagem": "frango_catupiry.jpg",
+      "categoria": "Tradicional"
+    },
+    {
+      "id": "4",
+      "nome": "Quatro Queijos",
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Gorgonzola",
+        "Provolone",
+        "Parmesão"
+      ],
+      "preco": 42,
+      "imagem": "quatro_queijos.jpg",
+      "categoria": "Tradicional"
+    },
+    {
+      "id": "5",
+      "nome": "Chocolate com Morango",
+      "ingredientes": [
+        "Chocolate ao leite",
+        "Morangos frescos",
+        "Granulado"
+      ],
+      "preco": 34.9,
+      "imagem": "chocolate_morango.jpg",
+      "categoria": "Doce"
+    },
+    {
+      "id": "6",
+      "nome": "Banana com Canela",
+      "ingredientes": [
+        "Banana",
+        "Açúcar",
+        "Canela em pó",
+        "Leite condensado"
+      ],
+      "preco": 31.5,
+      "imagem": "banana_canela.jpg",
+      "categoria": "Doce"
+    },
+    {
+      "id": "7",
+      "nome": "Vegetariana",
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Tomate",
+        "Cebola",
+        "Pimentão",
+        "Azeitona"
+      ],
+      "preco": 38,
+      "imagem": "vegetariana.jpg",
+      "categoria": "Especialidades"
+    },
+    {
+      "id": "8",
+      "nome": "Vegana de Legumes",
+      "ingredientes": [
+        "Molho de tomate",
+        "Legumes variados",
+        "Cebola",
+        "Pimentão",
+        "Azeitona"
+      ],
+      "preco": 40,
+      "imagem": "vegana_legumes.jpg",
+      "categoria": "Vegana"
+    },
+    {
+      "id": "9",
+      "nome": "Portuguesa",
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Presunto",
+        "Ovo",
+        "Cebola",
+        "Azeitona",
+        "Ervilha"
+      ],
+      "preco": 41.5,
+      "imagem": "portuguesa.jpg",
+      "categoria": "Tradicional"
+    },
+    {
+      "id": "10",
+      "nome": "Palmito",
+      "ingredientes": [
+        "Molho de tomate",
+        "Mussarela",
+        "Palmito",
+        "Cebola",
+        "Azeitona"
+      ],
+      "preco": 39,
+      "imagem": "palmito.jpg",
+      "categoria": "Especialidades"
+    },
+    {
+      "id": "11",
+      "nome": "Cheddar & Bacon",
+      "ingredientes": [
+        "Bacon",
+        "Molho de Cheddar",
+        "Orégano",
+        "Cebola"
+      ],
+      "preco": 41.9,
+      "imagem": "cheddar_bacon.jpg",
+      "categoria": "Especialidades"
+    },
+    {
+      "id": "12",
+      "nome": "Pepperrock",
+      "ingredientes": [
+        "Queijo",
+        "Pepperoni",
+        "Parmesão",
+        "Azeitona",
+        "Orégano",
+        "Alho"
+      ],
+      "preco": 43,
+      "imagem": "pepperrock.jpg",
+      "categoria": "Especialidades"
+    },
+    {
+      "id": "13",
+      "nome": "Pistache",
+      "ingredientes": [
+        "Leite condensado",
+        "Pistache",
+        "Chocolate branco"
+      ],
+      "preco": 43,
+      "imagem": "pistache.jpg",
+      "categoria": "Doce"
+    },
+    {
+      "id": "14",
+      "nome": "Churros",
+      "ingredientes": [
+        "Doce de leite",
+        "Açúcar",
+        "Canela em pó"
+      ],
+      "preco": 40,
+      "imagem": "churros.jpg",
+      "categoria": "Doce"
+    },
+    {
+      "id": "15",
+      "nome": "Abobrinha",
+      "ingredientes": [
+        "Abobrinha",
+        "Manjericão fresco",
+        "Alho",
+        "Molho de tomate"
+      ],
+      "preco": 44,
+      "imagem": "abobrinha.jpg",
+      "categoria": "Vegana"
+    },
+    {
+      "id": "16",
+      "categoria": "Especial",
+      "imagem": "https://data.thefeedfeed.com/recommended/post_2151637.jpeg",
+      "preco": 66,
+      "ingredientes": [
+        "Queijo",
+        "Kimchi",
+        "Gouchujang",
+        "Ovo"
+      ],
+      "nome": "Saja Boys"
+    }
+  ]
+}

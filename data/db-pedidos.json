@@ -1,0 +1,359 @@
+{
+  "pedidos": [
+    {
+      "id": "1",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "8",
+          "nome": "Vegana de Legumes",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "48.00",
+          "quantidade": 1,
+          "total": 48
+        },
+        {
+          "pizzaId": "6",
+          "nome": "Banana com Canela",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "37.80",
+          "quantidade": 2,
+          "total": 75.6
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "5",
+      "endereco": null,
+      "total": 123.6,
+      "status": "Finalizado"
+    },
+    {
+      "id": "2",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "14",
+          "nome": "Churros",
+          "observacao": [],
+          "tamanho": "Grande",
+          "preco": "60.00",
+          "quantidade": 1,
+          "total": 60
+        },
+        {
+          "pizzaId": "11",
+          "nome": "Cheddar & Bacon",
+          "observacao": [],
+          "tamanho": "Grande",
+          "preco": "62.85",
+          "quantidade": 1,
+          "total": 62.849999999999994
+        },
+        {
+          "pizzaId": "4",
+          "nome": "Quatro Queijos",
+          "observacao": [],
+          "tamanho": "Grande",
+          "preco": "63.00",
+          "quantidade": 1,
+          "total": 63
+        }
+      ],
+      "tipoEntrega": "entrega",
+      "numeroMesa": null,
+      "endereco": "Rua Amarando, 34, Barra",
+      "total": 185.85,
+      "status": "Entregar"
+    },
+    {
+      "id": "3",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "3",
+          "nome": "Frango com Catupiry",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "47.88",
+          "quantidade": 1,
+          "total": 47.879999999999995
+        },
+        {
+          "pizzaId": "9",
+          "nome": "Portuguesa",
+          "observacao": [],
+          "tamanho": "Pequena",
+          "preco": "41.50",
+          "quantidade": 1,
+          "total": 41.5
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "2",
+      "endereco": null,
+      "total": 89.38,
+      "status": "Em preparo"
+    },
+    {
+      "id": "4",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "4",
+          "nome": "Quatro Queijos",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "50.40",
+          "quantidade": 1,
+          "total": 50.4
+        },
+        {
+          "pizzaId": "1",
+          "nome": "Margherita",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "39.48",
+          "quantidade": 1,
+          "total": 39.48
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "3",
+      "endereco": null,
+      "total": 89.88,
+      "status": "Novo"
+    },
+    {
+      "id": "5",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": 5,
+          "nome": "Chocolate com Morango",
+          "observacao": [],
+          "preco": "34.90",
+          "quantidade": 2,
+          "total": 69.8
+        },
+        {
+          "pizzaId": 3,
+          "nome": "Frango com Catupiry",
+          "observacao": [],
+          "preco": "39.90",
+          "quantidade": 9,
+          "total": 359.09999999999997
+        },
+        {
+          "pizzaId": 2,
+          "nome": "Calabresa",
+          "observacao": "sem cebolo, mussarela e calabresa",
+          "tamanho": "Média",
+          "preco": "36.50",
+          "quantidade": 1,
+          "total": 36.5
+        },
+        {
+          "pizzaId": 1,
+          "nome": "Margherita",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "32.90",
+          "quantidade": 2,
+          "total": 65.8
+        }
+      ],
+      "tipoEntrega": "entrega",
+      "numeroMesa": null,
+      "endereco": "sjdkfdskbfbsdbf",
+      "total": 531.1999999999999,
+      "status": "Novo"
+    },
+    {
+      "id": "6",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "8",
+          "nome": "Vegana de Legumes",
+          "observacao": "sem cebola",
+          "tamanho": "Média",
+          "preco": "48.00",
+          "quantidade": 1,
+          "total": 48
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "5",
+      "endereco": null,
+      "total": 48,
+      "status": "Novo"
+    },
+    {
+      "id": "7",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "8",
+          "nome": "Vegana de Legumes",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "48.00",
+          "quantidade": 1,
+          "total": 48
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "cliente@pizzaria.com",
+      "endereco": null,
+      "total": 48,
+      "status": "Novo"
+    },
+    {
+      "id": "8",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "1",
+          "nome": "Margherita",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "39.48",
+          "quantidade": 1,
+          "total": 39.48
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "jdfksdfbsc",
+      "endereco": null,
+      "total": 39.48,
+      "status": "Novo"
+    },
+    {
+      "id": "9",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "2",
+          "nome": "Calabresa",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "43.80",
+          "quantidade": 1,
+          "total": 43.8
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "ajhdkabibad",
+      "endereco": null,
+      "total": 43.8,
+      "status": "Novo"
+    },
+    {
+      "id": "10",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "1",
+          "nome": "Margherita",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "39.48",
+          "quantidade": 1,
+          "total": 39.48
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "ajjk",
+      "endereco": null,
+      "total": 39.48,
+      "status": "Novo"
+    },
+    {
+      "id": "11",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": 3,
+          "nome": "Frango com Catupiry",
+          "observacao": [],
+          "tamanho": "Grande",
+          "preco": "39.90",
+          "quantidade": 1,
+          "total": 39.9
+        },
+        {
+          "pizzaId": "6",
+          "nome": "Banana com Canela",
+          "observacao": [],
+          "tamanho": "Pequena",
+          "preco": "31.50",
+          "quantidade": 1,
+          "total": 31.5
+        },
+        {
+          "pizzaId": "15",
+          "nome": "Abobrinha",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "52.80",
+          "quantidade": 1,
+          "total": 52.8
+        },
+        {
+          "pizzaId": "8",
+          "nome": "Vegana de Legumes",
+          "observacao": [],
+          "tamanho": "Pequena",
+          "preco": "40.00",
+          "quantidade": 1,
+          "total": 40
+        },
+        {
+          "pizzaId": "7",
+          "nome": "Vegetariana",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "45.60",
+          "quantidade": 1,
+          "total": 45.6
+        }
+      ],
+      "tipoEntrega": "entrega",
+      "numeroMesa": null,
+      "endereco": "Rua A, 1, Manoa",
+      "total": 209.79999999999998,
+      "status": "Novo"
+    },
+    {
+      "id": "12",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "4",
+          "nome": "Quatro Queijos",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "50.40",
+          "quantidade": 1,
+          "total": 50.4
+        },
+        {
+          "pizzaId": "8",
+          "nome": "Vegana de Legumes",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "48.00",
+          "quantidade": 1,
+          "total": 48
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "34",
+      "endereco": null,
+      "total": 98.4,
+      "status": "Novo"
+    }
+  ]
+}
