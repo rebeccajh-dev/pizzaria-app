@@ -1,0 +1,22 @@
+{
+  "garcons":[
+    {
+        "nome" : "Fabiano Oliveira",
+        "matricula" : "G202501",
+        "cpf": "11122233355",
+        "foto": "https://segredosdomundo.r7.com/wp-content/uploads/2018/03/sair-bem-na-foto-3x4-e-possivel-15-dicas-para-a-foto-do-rg.jpg",
+        "telefone":"92990907070",
+        "historicoEntregas": [
+            {
+                "idAtendimento":"1",
+                "numeroMesa": "Rua Amarando, 34, Barra",
+                "idPedido": "1",
+                "valorGorjeta": 18.58,
+                "avaliacao":2,
+                "observacao":"O pedido demorou a chegar."
+            }
+        ],
+        "status": "ocupado"
+    }
+  ]
+}

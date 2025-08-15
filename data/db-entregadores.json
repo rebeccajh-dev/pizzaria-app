@@ -1,0 +1,24 @@
+{
+  "entregadores":[
+    {
+        "nome" : "Patricio Silva",
+        "matricula" : "E202501",
+        "cpf": "11122233344",
+        "foto": "https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?cs=srgb&dl=pexels-olly-3777943.jpg&fm=jpg",
+        "telefone":"92990907070",
+        "historicoAtendimentos": [
+            {
+                "idEntrega":"1",
+                "endereco": "Rua Amarando, 34, Barra",
+                "idPedido": "1",
+                "valorEntrega": 20.00,
+                "dataHoraSaida":"2025-08-15T14:35:00Z",
+                "dotaHoraEntrega":"2025-08-15T15:26:00Z",
+                "avaliacao":2,
+                "observacao":"O pedido demorou a chegar."
+            }
+        ],
+        "status": "ocupado"
+    }
+  ]
+}
