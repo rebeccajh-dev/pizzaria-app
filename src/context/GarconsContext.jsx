@@ -2,9 +2,9 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 const GarconsContext = createContext();
 
-export const usegarcons = () => useContext(GarconsContext);
+export const useGarcons = () => useContext(GarconsContext);
 
-export function garconsProvider({ children }) {
+export function GarconsProvider({ children }) {
   const [garcons, setGarcons] = useState([]);
   const baseUrl = "http://localhost:3004/garcons";
 
@@ -57,7 +57,7 @@ export function garconsProvider({ children }) {
   };
 
   useEffect(() => {
-    fetchgarcons();
+    fetchGarcons();
   }, []);
 
   return (

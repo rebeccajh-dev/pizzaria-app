@@ -38,7 +38,7 @@ const Cozinha = () => {
         padding:{xs:0, md:2},
         display: "flex",
         gap: 2,
-        flexDirection: { xs: "column", md: "row" } // coluna no mobile, lado a lado no desktop
+        flexDirection: { xs: "column", md: "row" } 
       }}
     >
       {/* Lista de pedidos */}

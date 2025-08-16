@@ -8,12 +8,13 @@
         "telefone":"92990907070",
         "historicoEntregas": [
             {
-                "idAtendimento":"1",
-                "numeroMesa": "Rua Amarando, 34, Barra",
-                "idPedido": "1",
-                "valorGorjeta": 18.58,
-                "avaliacao":2,
-                "observacao":"O pedido demorou a chegar."
+              "idAtendimento":"1",
+              "numeroMesa": "7",
+              "idPedido": "1",
+              "valorGorjeta": 18.58,
+              "avaliacao":2,
+              "observacao":"O pedido demorou a chegar.",
+              "dataHoraAtendimento": "2025-08-15T15:26:00Z"
             }
         ],
         "status": "ocupado"

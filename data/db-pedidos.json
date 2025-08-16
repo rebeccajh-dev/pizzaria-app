@@ -168,7 +168,7 @@
       "numeroMesa": null,
       "endereco": "sjdkfdskbfbsdbf",
       "total": 531.1999999999999,
-      "status": "Novo"
+      "status": "Em preparo"
     },
     {
       "id": "6",
@@ -188,7 +188,7 @@
       "numeroMesa": "5",
       "endereco": null,
       "total": 48,
-      "status": "Novo"
+      "status": "Em preparo"
     },
     {
       "id": "7",
