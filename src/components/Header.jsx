@@ -42,7 +42,7 @@ const Header = () => {
 
   return (
     //{//mudar isso aqui}
-    <AppBar position="static" width="100%" sx={{ backgroundColor: "#194216ff" }}> 
+    <AppBar position="static" width="100%" sx={{ backgroundColor: theme.palette.seventh.main }}> 
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         
         {/* Logo e título */}
@@ -53,7 +53,7 @@ const Header = () => {
             alt="Logo"
             sx={{ height: 40, mr: 2 }}
           />
-          {!isSmallScreen && <Typography variant="h6">MammaMia Pizzaria</Typography>}
+          {!isSmallScreen && <Typography variant="h6" color="secondary" fontWeight="bold" >MammaMia Pizzaria</Typography>}
         </Box>
 
         {/* Barra de navegação centralizada */}
@@ -81,13 +81,18 @@ const Header = () => {
         {/* Botão Logout */}
         {!isLoginPage && usuarioLogado && (
           <Button
-            color="inherit"
-            variant="contained"
-            onClick={handleLogout}
-            sx={{ fontWeight: "bold", backgroundColor:"#a5140a" }}
-          >
-            Sair
-          </Button>
+              color="primary"
+              variant="contained"
+              onClick={handleLogout}
+              sx={{
+                fontWeight: "bold",
+                backgroundColor: theme.palette.secondary.main,
+                color: theme.palette.primary.main,
+                }}
+              >
+                Sair
+              </Button>
+
         )}
       </Toolbar>
     </AppBar>

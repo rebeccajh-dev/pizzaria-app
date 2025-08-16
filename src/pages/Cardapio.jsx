@@ -1,12 +1,14 @@
 import React, {useState } from "react";
 import {
-  AppBar, Toolbar, Typography, Box, Button
+  AppBar, Toolbar, Typography, Box, Button, useTheme
 } from "@mui/material";
 import PizzaCard from "../components/PizzaCard";
 import { toast } from "react-toastify";
 import { usePizzas } from "../context/PizzasContext";
 
+
 const Cardapio = () => {
+  const theme = useTheme();
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado")) || {};
   const [filtrosAtivos, setFiltrosAtivos] = useState([]);
   const { pizzas } = usePizzas();
@@ -44,14 +46,9 @@ const Cardapio = () => {
         )
       : pizzas;
 
-    if ((usuarioLogado === null)) {
-      return (
-          <Box sx={{ p: 4, textAlign: 'center' }}>
-              <Typography variant="h5">Acesso Restrito</Typography>
-              <Typography>Você precisa estar logado como cliente para ver o cardápio.</Typography>
-          </Box>
-      );
-    }
+    if (usuarioLogado === null) {
+  return <Navigate to="/notfound" replace />;
+}
   
   return (
     <Box sx={(theme) => ({
@@ -59,12 +56,12 @@ const Cardapio = () => {
       minHeight: "100vh",
     })}>
       {((usuarioLogado === null)) && (
-      <AppBar position="static" sx={{ bgcolor: "#558858ff" }}>
+      <AppBar position="static" sx={{ bgcolor: theme.palette.secondary.main }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Typography variant="h6">Cardápio</Typography>
           <Button
             variant="contained"
-            sx={{ color: "#ffffff", bgcolor: "#a5140a", "&:hover": { bgcolor: "#9a3730ff" } }}
+            sx={{ color: theme.palette.primary.main, bgcolor: theme.palette.secondary.main, "&:hover": { bgcolor: theme.palette.secondary.main } }}
             onClick={finalizarPedido}
           >
             Finalizar Pedido
@@ -80,12 +77,12 @@ const Cardapio = () => {
       variant={filtrosAtivos.includes(id) ? "contained" : "outlined"}
       onClick={() => handleClickFiltro(id)}
       sx={(theme) => ({
-        bgcolor: filtrosAtivos.includes(id) ? "#0d7212ff" : theme.palette.background.default,
-        color: filtrosAtivos.includes(id) ? "#ffffff" : "#0d7212ff",
-        borderColor: "#0d7212ff",
+        bgcolor: filtrosAtivos.includes(id) ? theme.palette.quartiary.main : theme.palette.background.default,
+        color: filtrosAtivos.includes(id) ? theme.palette.primary.main : theme.palette.quartiary.main,
+        borderColor: theme.palette.quartiary.main,
         borderRadius: "10px",
         "&:hover": {
-          bgcolor: filtrosAtivos.includes(id) ? "#0f8c23" : "#e8f5e9",
+          bgcolor: filtrosAtivos.includes(id) ? theme.pallete.quintary.main : theme.palette.primary.main,
         },
       })}
     >

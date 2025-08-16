@@ -7,13 +7,15 @@ import {
   Avatar,
   Divider,
   Button,
-  Chip
+  Chip,
+  useTheme
 } from "@mui/material";
 
 import { usePizzas } from "../context/PizzasContext";
 import { usePedidos } from "../context/PedidosContext";
 
 const DetalhesPedido = ({ pedido, onClose }) => {
+  const theme = useTheme();
   const { pizzas } = usePizzas();
   const { updatePedidoStatus } = usePedidos();
 
@@ -84,7 +86,7 @@ const DetalhesPedido = ({ pedido, onClose }) => {
           const pizzaInfo = pizzas.find(p => String(p.id) === String(item.pizzaId));
           return (
             <Box key={idx} display="flex" alignItems="center" gap={2} mb={1}>
-              <Typography variant="body2" color="#d32f2f">
+              <Typography variant="body2" color="secondary">
                 {item.quantidade}x
               </Typography>
               <Avatar
@@ -134,7 +136,7 @@ const DetalhesPedido = ({ pedido, onClose }) => {
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 2, backgroundColor: "#FF5A5F" }}
+            sx={{ mt: 2, backgroundColor: theme.palette.sextatory.main }}
             onClick={handleFinalizar}
           >
             {getButtonLabel()}

@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import { Box, Stack, Button, TableCell, Paper , TableContainer, Table, TableHead, TableRow, TableBody, CardActions} from "@mui/material";
+import { Box, Stack, Button, TableCell, Paper , TableContainer, Table, TableHead, TableRow, TableBody, CardActions } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import PizzaDialog from "../components/PizzaDialog";
 
@@ -71,7 +71,7 @@ const Admin = () => {
                     <TableCell>{pizza.categoria}</TableCell>
                     <TableCell>
                       <CardActions>
-                        <Button variant="contained"  color="success" onClick={() => handleOpenEdit(pizza)}>Editar</Button>
+                        <Button variant="contained"  color="success" onClick={() => handleOpenEdit(pizza)}>Editar</Button> 
                         <Button variant="contained"  color="error" onClick={() => handleDelete(pizza.id)}>Deletar</Button>
                       </CardActions>
                     </TableCell>

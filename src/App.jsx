@@ -1,35 +1,22 @@
 import React, { useState, useMemo } from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider} from '@mui/material/styles';
 import { Box, CssBaseline, IconButton } from '@mui/material';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import Header from './components/Header';
 import AppRoutes from './routes/AppRoutes';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
+import {getTheme} from "./routes/theme"
 
-function App() {
+export default function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const theme = useMemo(() => getTheme(darkMode), [darkMode]);
+  const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: darkMode ? 'dark' : 'light',
-          background: {
-            default: darkMode ? '#121212' : '#f5f5f5', // fundo global
-          },
-        },
-      }),
-    [darkMode]
-  );
-
-  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
-
       <Box
         sx={{
           position: 'fixed',
@@ -41,7 +28,7 @@ function App() {
           backgroundColor: theme.palette.background.default,
         }}
       >
-        <IconButton onClick={toggleDarkMode} color="inherit">
+        <IconButton onClick={toggleDarkMode} color="black">
           {darkMode ? <Brightness7 /> : <Brightness4 />}
         </IconButton>
       </Box>
@@ -55,5 +42,3 @@ function App() {
     </ThemeProvider>
   );
 }
-
-export default App;

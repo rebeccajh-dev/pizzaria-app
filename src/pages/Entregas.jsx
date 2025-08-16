@@ -1,11 +1,12 @@
 import React, { useState} from "react";
-import { Box, Tabs, Tab, Paper } from "@mui/material";
+import { Box, Tabs, Tab, Paper, useTheme } from "@mui/material";
 import OrdersList from "../components/OrderList";
 import DetalhesPedido from "../components/DetalhesPedido";
 import { usePizzas } from "../context/PizzasContext";
 import { usePedidos } from "../context/PedidosContext";
 
 const Entregas = () => {
+  const theme = useTheme();
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   const [tab, setTab] = useState(0);
   const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
@@ -45,9 +46,9 @@ const Entregas = () => {
           onChange={(e, newValue) => setTab(newValue)}
           textColor="#c40f0fff"
           sx={{
-            "& .MuiTab-root": { color: "#FF5A5F" },
-            "& .Mui-selected": { color: "#c40f0fff", fontWeight: "bold" },
-            "& .MuiTabs-indicator": { backgroundColor: "#FF5A5F" },
+            "& .MuiTab-root": { color: theme.palette.sextatory.main },
+            "& .Mui-selected": { color: theme.palette.secondary.main, fontWeight: "bold" },
+            "& .MuiTabs-indicator": { backgroundColor: theme.palette.sextatory.main },
           }}
         >
           <Tab label="Tudo" />

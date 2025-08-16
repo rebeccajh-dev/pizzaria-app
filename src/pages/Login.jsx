@@ -10,11 +10,12 @@ import {
   IconButton,
   InputAdornment,
   Paper,
-  Alert
+  Alert,
+  useTheme
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
 const Login = () => {
+  const theme = useTheme();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -73,7 +74,7 @@ const Login = () => {
         flexDirection: "column", // para organizar verticalmente
         minHeight: "90vh", // altura total
         width: "100%", // largura total
-        backgroundColor: "#558858ff"
+        backgroundColor: theme.palette.tertiary.main
       }}
     >
       <Paper elevation={4} sx={{ p: 4, width: 350 }}>
@@ -135,7 +136,7 @@ const Login = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ mt: 2, backgroundColor: "#d32f2f", color:"#fff"}}
+            sx={{ mt: 2, backgroundColor: theme.palette.secondary.main, color: theme.palette.text.tertiary}}
           >
             Entrar
           </Button>
