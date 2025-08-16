@@ -50,6 +50,7 @@ export function EntregadoresProvider({ children }) {
           body: JSON.stringify({ ...data, id: nextId })
         });
       }
+      toast.success("Entregador salvo com sucesso!")
       await fetchEntregadores();
     } catch (err) {
       toast.error("Erro ao salvar entregador:", err);

@@ -1,23 +1,32 @@
 {
-  "garcons":[
+  "garcons": [
     {
-        "nome" : "Fabiano Oliveira",
-        "matricula" : "G202501",
-        "cpf": "11122233355",
-        "foto": "https://segredosdomundo.r7.com/wp-content/uploads/2018/03/sair-bem-na-foto-3x4-e-possivel-15-dicas-para-a-foto-do-rg.jpg",
-        "telefone":"92990907070",
-        "historicoEntregas": [
-            {
-              "idAtendimento":"1",
-              "numeroMesa": "7",
-              "idPedido": "1",
-              "valorGorjeta": 18.58,
-              "avaliacao":2,
-              "observacao":"O pedido demorou a chegar.",
-              "dataHoraAtendimento": "2025-08-15T15:26:00Z"
-            }
-        ],
-        "status": "ocupado"
+      "id": "G202501",
+      "nome": "Fabiano Oliveira",
+      "cpf": "11122233355",
+      "foto": "https://segredosdomundo.r7.com/wp-content/uploads/2018/03/sair-bem-na-foto-3x4-e-possivel-15-dicas-para-a-foto-do-rg.jpg",
+      "telefone": "92990907070",
+      "historicoAtendimentos": [
+        {
+          "idAtendimento": "1",
+          "numeroMesa": "7",
+          "idPedido": "1",
+          "valorGorjeta": 18.58,
+          "avaliacao": 2,
+          "observacao": "O pedido demorou a chegar.",
+          "dataHoraAtendimento": "2025-08-15T15:26:00Z"
+        }
+      ],
+      "status": "ocupado"
+    },
+    {
+      "id": "G252502",
+      "nome": "Klissia Martins",
+      "cpf": "705.307.282-73",
+      "foto": "https://photos.google.com/search/CghLbGlzc2lhIBopCidBRjFRaXBNY2NNNEM2aUJVZWNQNDJJZUFRcmpOWGNJWEpwUFMyeFUiMRIvCi0KKwopEidBRjFRaXBNY2NNNEM2aUJVZWNQNDJJZUFRcmpOWGNJWEpwUFMyeFUo36bciIsz/photo/AF1QipO1KlxU8BELIAFCUqdvGwNk96COxa9yWyv-tTS6",
+      "telefone": "(92)99218-2337",
+      "status": "disponível",
+      "historicoAtendimentos": []
     }
   ]
 }

@@ -51,7 +51,7 @@ const Header = () => {
             alt="Logo"
             sx={{ height: 40, mr: 2 }}
           />
-          {!isSmallScreen && <Typography variant="h6" color="secondary" fontWeight="bold" >MammaMia Pizzaria</Typography>}
+          {!isSmallScreen && <Typography variant="h6" color="primary" fontSize="17px"  >MammaMia Pizzaria</Typography>}
         </Box>
 
         {/* Barra de navegação centralizada */}
@@ -62,8 +62,8 @@ const Header = () => {
                 key={link.to}
                 component={Link}
                 to={link.to}
+                color={location.pathname === link.to ? "quartiary" : "tertiary"}
                 sx={{
-                  color: "white",
                   textDecoration: "none",
                   fontWeight:
                     location.pathname === link.to ? "bold" : "normal",

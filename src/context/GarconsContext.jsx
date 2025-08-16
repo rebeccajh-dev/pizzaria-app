@@ -50,9 +50,11 @@ export function GarconsProvider({ children }) {
           body: JSON.stringify({ ...data, id: nextId })
         });
       }
-      await fetchgarcons();
+      toast.success("Garçom salvo com sucesso!")
+      await fetchGarcons();
     } catch (err) {
       toast.error("Erro ao salvar Garçom:", err);
+      console.error("Erro ao salvar Garçom:", err);
     }
   };
 

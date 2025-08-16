@@ -4,12 +4,16 @@ import TabelaPizzas from "../components/TabelaPizzas";
 import TabelaEntregadores from "../components/TabelaEntregadores";
 import TabelaGarcons from "../components/TabelaGarcons";
 import { EntregadoresProvider } from "../context/EntregadoresContext";
+import HistoricoEntregas from "../components/HistoricoEntregas";
 import PizzaCard from "../components/PizzaCard";
+import HistoricoAtendimentos from "../components/HistoricoAtendimentos";
 
 const Admin = () => {
   const theme = useTheme();
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   const [tab, setTab] = useState(0);
+  const [entregadorSelecionado, setEntregadorSelecionado] = useState(null);
+  const [garcomSelecionado, setGarcomSelecionado] = useState(null);
 
   if (usuarioLogado?.tipo !== "admin") {
     return <div>não tenho acesso</div>;
@@ -44,14 +48,28 @@ const Admin = () => {
 
       <Paper sx={{ p: 2 }}>
         {tab === 0 && <TabelaPizzas />}
-        {tab === 1 && (
-          <EntregadoresProvider>
-            <TabelaEntregadores />
-          </EntregadoresProvider>
-        )}
-        {tab === 2 && <TabelaGarcons />}
+        {tab === 1 && <TabelaEntregadores onSelecionarHistorico={setEntregadorSelecionado}/>}
+        {tab === 2 && <TabelaGarcons onSelecionarHistorico={setGarcomSelecionado}/>}
         {tab === 3 && <PizzaCard />}
       </Paper>
+
+      {/* Painel de detalhes */}
+      {tab === 1 &&(
+        <Paper sx={{ width: { xs: "100%", md: "100%" , padding:{xs:0, md:2}}}} elevation={3}>
+          <HistoricoEntregas
+            entregador={entregadorSelecionado}
+            onClose={() => setEntregadorSelecionado(null)}
+          />
+      </Paper>
+      )}
+      {tab === 2 &&(
+        <Paper sx={{ width: { xs: "100%", md: "100%" , padding:{xs:0, md:2}}}} elevation={3}>
+          <HistoricoAtendimentos
+            garcom={garcomSelecionado}
+            onClose={() => setGarcomSelecionado(null)}
+          />
+        </Paper>
+      )}
     </Box>
   );
 };

@@ -1,10 +1,10 @@
 import { Box, Stack, Button, TableCell, Paper , TableContainer, Table, TableHead, TableRow, TableBody, CardActions} from "@mui/material";
 import { Add } from "@mui/icons-material";
-//import GarcomDialog from "../components/GarcomDialog";
+import GarcomDialog from "../components/GarcomDialog";
 import { useState } from "react";
 import { useGarcons} from "../context/GarconsContext";
 
-const Tabelagarcons = () => {
+const TabelaGarcons = ({ onSelecionarHistorico }) => {
     const { garcons, saveGarcom, deleteGarcom } = useGarcons();
     const [open, setOpen] = useState(false);
     const [editing, setEditing] = useState(null);
@@ -50,14 +50,14 @@ const Tabelagarcons = () => {
                 </TableHead>
                 <TableBody>
                 {garcons.map((garcom) => (
-                    <TableRow key={garcom.matricula}>
-                    <TableCell>{garcom.matricula}</TableCell>
+                    <TableRow key={garcom.id}>
+                    <TableCell>{garcom.id}</TableCell>
                     <TableCell>{garcom.nome}</TableCell>
                     <TableCell>{garcom.cpf}</TableCell>
                     <TableCell>{garcom.telefone}</TableCell>
                     <TableCell>
                         <CardActions>
-                            <Button variant="outlined"  color="primary" onClick={() => handleOpenEdit(garcom)}>Histórico de atendimentos</Button>
+                            <Button variant="outlined"  color="secondary" onClick={() => onSelecionarHistorico(garcom)}>Histórico</Button>
                         </CardActions>
                     </TableCell>
                     <TableCell>
@@ -73,7 +73,7 @@ const Tabelagarcons = () => {
             </TableContainer>
 
             {open && (
-            <garcomDialog
+            <GarcomDialog
                 open={open}
                 onClose={() => setOpen(false)}
                 onSave={handleSave}
@@ -84,4 +84,4 @@ const Tabelagarcons = () => {
     )
 }
 
-export default Tabelagarcons
+export default TabelaGarcons

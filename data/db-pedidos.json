@@ -65,7 +65,7 @@
       "numeroMesa": null,
       "endereco": "Rua Amarando, 34, Barra",
       "total": 185.85,
-      "status": "Entregar"
+      "status": "Finalizado"
     },
     {
       "id": "3",
@@ -168,7 +168,7 @@
       "numeroMesa": null,
       "endereco": "sjdkfdskbfbsdbf",
       "total": 531.1999999999999,
-      "status": "Em preparo"
+      "status": "Finalizado"
     },
     {
       "id": "6",
@@ -392,6 +392,53 @@
       "endereco": null,
       "total": 223.32,
       "status": "Novo"
+    },
+    {
+      "id": "14",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "3",
+          "nome": "Frango com Catupiry",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "47.88",
+          "quantidade": 1,
+          "total": 47.879999999999995
+        },
+        {
+          "pizzaId": "13",
+          "nome": "Pistache",
+          "observacao": [],
+          "tamanho": "Pequena",
+          "preco": "43.00",
+          "quantidade": 1,
+          "total": 43
+        },
+        {
+          "pizzaId": "11",
+          "nome": "Cheddar & Bacon",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "150.84",
+          "quantidade": 3,
+          "total": 452.5199999999999
+        },
+        {
+          "pizzaId": "15",
+          "nome": "Abobrinha",
+          "observacao": [],
+          "tamanho": "Pequena",
+          "preco": "44.00",
+          "quantidade": 1,
+          "total": 44
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "9",
+      "endereco": null,
+      "total": 587.3999999999999,
+      "status": "Em preparo"
     }
   ]
 }

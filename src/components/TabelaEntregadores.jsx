@@ -1,10 +1,10 @@
 import { Box, Stack, Button, TableCell, Paper , TableContainer, Table, TableHead, TableRow, TableBody, CardActions} from "@mui/material";
 import { Add } from "@mui/icons-material";
-///import entregadorDialog from "../components/entregadorDialog";
+import EntregadorDialog from "../components/EntregadorDialog";
 import { useState } from "react";
 import { useEntregadores} from "../context/EntregadoresContext";
 
-const TabelaEntregadores = () => {
+const TabelaEntregadores = ({ onSelecionarHistorico }) => {
     const { entregadores, saveEntregador, deleteEntregador } = useEntregadores();
     const [open, setOpen] = useState(false);
     const [editing, setEditing] = useState(null);
@@ -38,7 +38,7 @@ const TabelaEntregadores = () => {
 
             <TableContainer component={Paper}>
             <Table aria-label="Inventário de Entregadores">
-                <TableHead>
+                <TableHead >
                     <TableRow>
                         <TableCell><strong>Matrícula</strong></TableCell>
                         <TableCell><strong>Nome</strong></TableCell>
@@ -50,14 +50,14 @@ const TabelaEntregadores = () => {
                 </TableHead>
                 <TableBody>
                 {entregadores.map((entregador) => (
-                    <TableRow key={entregador.matricula}>
-                    <TableCell>{entregador.matricula}</TableCell>
+                    <TableRow key={entregador.id}>
+                    <TableCell>{entregador.id}</TableCell>
                     <TableCell>{entregador.nome}</TableCell>
                     <TableCell>{entregador.cpf}</TableCell>
                     <TableCell>{entregador.telefone}</TableCell>
                     <TableCell>
                         <CardActions>
-                            <Button variant="outlined"  color="primary" onClick={() => handleOpenEdit(entregador)}>Histórico de entregas</Button>
+                            <Button  variant="outlined" color="secondary" onClick={() => onSelecionarHistorico(entregador)}>Histórico</Button>
                         </CardActions>
                     </TableCell>
                     <TableCell>
@@ -73,7 +73,7 @@ const TabelaEntregadores = () => {
             </TableContainer>
 
             {open && (
-            <entregadorDialog
+            <EntregadorDialog
                 open={open}
                 onClose={() => setOpen(false)}
                 onSave={handleSave}
@@ -83,5 +83,4 @@ const TabelaEntregadores = () => {
         </Box>
     )
 }
-
 export default TabelaEntregadores

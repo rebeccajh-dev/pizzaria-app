@@ -1,24 +1,33 @@
 {
-  "entregadores":[
+  "entregadores": [
     {
-        "nome" : "Patricio Silva",
-        "matricula" : "E202501",
-        "cpf": "111.222.333-44",
-        "foto": "https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?cs=srgb&dl=pexels-olly-3777943.jpg&fm=jpg",
-        "telefone":"(92)99090-7070",
-        "historicoAtendimentos": [
-            {
-              "idEntrega":"1",
-              "endereco": "Rua Amarando, 34, Barra",
-              "idPedido": "1",
-              "valorEntrega": 20.00,
-              "dataHoraSaida":"2025-08-15T14:35:00Z",
-              "dotaHoraEntrega":"2025-08-15T15:26:00Z",
-              "avaliacao":2,
-              "observacao":"O pedido demorou a chegar."
-            }
-        ],
-        "status": "ocupado"
+      "id": "E202501",
+      "nome": "Patricio Silva",
+      "cpf": "111.222.333-44",
+      "foto": "https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?cs=srgb&dl=pexels-olly-3777943.jpg&fm=jpg",
+      "telefone": "(92)99090-7070",
+      "historicoEntregas": [
+        {
+          "idEntrega": "1",
+          "endereco": "Rua Amarando, 34, Barra",
+          "idPedido": "1",
+          "valorEntrega": 20,
+          "dataHoraSaida": "2025-08-15T14:35:00Z",
+          "dataHoraEntrega": "2025-08-15T15:26:00Z",
+          "avaliacao": 2,
+          "observacao": "O pedido demorou a chegar."
+        }
+      ],
+      "status": "ocupado"
+    },
+    {
+      "id": "E252502",
+      "nome": "Julhyson Furtado",
+      "cpf": "068.742.172-16",
+      "foto": "https://photos.google.com/search/CghLbGlzc2lhIBopCidBRjFRaXBNY2NNNEM2aUJVZWNQNDJJZUFRcmpOWGNJWEpwUFMyeFUiMRIvCi0KKwopEidBRjFRaXBNY2NNNEM2aUJVZWNQNDJJZUFRcmpOWGNJWEpwUFMyeFUo36bciIsz/photo/AF1QipO1KlxU8BELIAFCUqdvGwNk96COxa9yWyv-tTS6",
+      "telefone": "(92)99218-2337",
+      "status": "disponível",
+      "historicoEntregas": []
     }
   ]
 }
