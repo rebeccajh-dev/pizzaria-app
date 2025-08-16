@@ -143,7 +143,7 @@ const Login = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ mt: 2, backgroundColor: theme.palette.secondary.main, color: theme.palette.text.tertiary}}
+            sx={{ mt: 2, backgroundColor: theme.palette.secondary.main, color: "white"}}
           >
             Entrar
           </Button>
