@@ -2,10 +2,16 @@ import React, {useState } from "react";
 import {
   AppBar, Toolbar, Typography, Box, Button, useTheme
 } from "@mui/material";
+import ImageCarousel from "../components/Carousel";
 import PizzaCard from "../components/PizzaCard";
 import { toast } from "react-toastify";
 import { usePizzas } from "../context/PizzasContext";
 
+const images = [
+  "/imagens/pizza1.png",
+  "/imagens/pizza2.png",
+  "/imagens/pizza3.png",
+];
 
 const Cardapio = () => {
   const theme = useTheme();
@@ -69,6 +75,11 @@ const Cardapio = () => {
         </Toolbar>
       </AppBar>
       )}
+
+        <Box sx={{ maxWidth: "1000px", margin: "auto", mt: 2}}>
+  <ImageCarousel images={images} />
+        </Box>
+
 
       <Box sx={{ display: "flex", gap: 2, p: 2, flexWrap: "wrap" }}>
   {botoes.map(({ id, label }) => (
