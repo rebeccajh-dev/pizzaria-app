@@ -14,62 +14,68 @@ import HistoricoPedidos from '../pages/HistoricoPedidos';
 
 import { PedidosProvider } from '../context/PedidosContext';
 import { PizzasProvider } from '../context/PizzasContext';
+import { EntregadoresProvider  } from '../context/EntregadoresContext';
+import { GarconsProvider  } from '../context/GarconsContext';
 
 const AppRoutes = () => (
   <PedidosProvider>
     <PizzasProvider>
-      <Routes>
-        <Route path="/" element={<Login/>} />
-        <Route 
-          path="/pages/cardapio" 
-          element={
-            <ProtectedRoute>
-              <Cardapio />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/pages/admin" 
-          element={
-            <ProtectedRoute>
-              <Admin />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/pages/historicoPedidos" 
-          element={
-            <ProtectedRoute>
-              <HistoricoPedidos/>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/pages/cozinha" 
-          element={
-            <ProtectedRoute>
-              <Cozinha/>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/pages/entregas" 
-          element={
-            <ProtectedRoute>
-              <Entregas/>
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/pages/pedido" 
-          element={
-            <ProtectedRoute>
-              <Pedido/>
-            </ProtectedRoute>
-          } 
-        />
-        <Route path="*" element={<NotFound/>} />
-      </Routes>
+      <EntregadoresProvider>
+        <GarconsProvider>
+          <Routes>
+            <Route path="/" element={<Login/>} />
+            <Route 
+              path="/pages/cardapio" 
+              element={
+                <ProtectedRoute>
+                  <Cardapio />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/pages/admin" 
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/pages/historicoPedidos" 
+              element={
+                <ProtectedRoute>
+                  <HistoricoPedidos/>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/pages/cozinha" 
+              element={
+                <ProtectedRoute>
+                  <Cozinha/>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/pages/entregas" 
+              element={
+                <ProtectedRoute>
+                  <Entregas/>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/pages/pedido" 
+              element={
+                <ProtectedRoute>
+                  <Pedido/>
+                </ProtectedRoute>
+              } 
+            />
+            <Route path="*" element={<NotFound/>} />
+          </Routes>
+        </GarconsProvider>
+      </EntregadoresProvider>
     </PizzasProvider>
   </PedidosProvider>
 );

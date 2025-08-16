@@ -90,10 +90,7 @@ const Cardapio = () => {
     </Button>
   ))}
 </Box>
-
-
-      <PizzaCard pizzas={pizzasFiltradas} />
-
+    <PizzaCard pizzas={pizzasFiltradas} />
     </Box>
   );
 };

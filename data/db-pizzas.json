@@ -200,19 +200,6 @@
       "preco": 44,
       "imagem": "abobrinha.jpg",
       "categoria": "Vegana"
-    },
-    {
-      "id": "16",
-      "categoria": "Especial",
-      "imagem": "https://data.thefeedfeed.com/recommended/post_2151637.jpeg",
-      "preco": 66,
-      "ingredientes": [
-        "Queijo",
-        "Kimchi",
-        "Gouchujang",
-        "Ovo"
-      ],
-      "nome": "Saja Boys"
     }
   ]
 }

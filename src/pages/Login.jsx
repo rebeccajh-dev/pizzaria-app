@@ -59,7 +59,14 @@ const Login = () => {
 
       localStorage.setItem("usuarioLogado", JSON.stringify(usuarioAutenticado));
       login(usuarioAutenticado, token);
-      navigate("/pages/cardapio");
+
+      if (usuarioAutenticado?.tipo === "admin") {
+        navigate("/pages/admin")
+      } else if (usuarioAutenticado?.tipo === "funcionario") {
+        navigate("/pages/cozinha");
+      }else{
+        navigate("/pages/cardapio");
+      }
     } else {
       setErro("E-mail ou senha inválidos.");
     }

@@ -22,13 +22,11 @@ const Header = () => {
       ];
     } else if (usuarioLogado.tipo === "funcionario") {
       navLinks = [
-        { label: "Cardápio", to: "/pages/cardapio" },
         { label: "Cozinha", to: "/pages/cozinha" },
         { label: "Entregas", to: "/pages/entregas" }
       ];
     } else if (usuarioLogado.tipo === "admin") {
       navLinks = [
-        { label: "Cardápio", to: "/pages/cardapio" },
         { label: "Admin", to: "/pages/admin" },
         { label: "Histórico de Pedidos", to: "/pages/historicoPedidos"}
       ];
