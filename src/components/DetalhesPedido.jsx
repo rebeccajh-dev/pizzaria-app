@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -8,16 +8,24 @@ import {
   Divider,
   Button,
   Chip,
-  useTheme
+  useTheme,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel
 } from "@mui/material";
 
 import { usePizzas } from "../context/PizzasContext";
 import { usePedidos } from "../context/PedidosContext";
+import { useEntregadores } from "../context/EntregadoresContext"
 
 const DetalhesPedido = ({ pedido, onClose }) => {
   const theme = useTheme();
   const { pizzas } = usePizzas();
   const { updatePedidoStatus } = usePedidos();
+  const { entregadores } = useEntregadores();
+  const [entregadorSelecionado, setEntregadorSelecionado] = useState("");
+  const entregadoresDisponiveis = entregadores.filter(e => e.status === "disponível");
 
   if (!pedido) {
     return (
@@ -44,10 +52,16 @@ const DetalhesPedido = ({ pedido, onClose }) => {
     }
 
     if (novoStatus !== pedido.status) {
-      await updatePedidoStatus(pedido.id, novoStatus);
+      const extraData =
+        pedido.tipoEntrega === "entrega" && entregadorSelecionado
+          ? { entregador: entregadorSelecionado }
+          : {};
+
+      await updatePedidoStatus(pedido.id, novoStatus, extraData);
       onClose();
     }
   };
+
 
   return (
     <Card sx={{ borderRadius: 3, width: "100%" }}>
@@ -61,34 +75,25 @@ const DetalhesPedido = ({ pedido, onClose }) => {
           />
         </Typography>
 
+        {/* Info local */}
         <Box display="flex" alignItems="center" gap={1} mt={1}>
-          <Avatar
-            src="/imagens/local.png"
-            alt="Local"
-            variant="square"
-            sx={{ width: 24, height: 24 }}
-          />
+          <Avatar src="/imagens/local.png" alt="Local" variant="square" sx={{ width: 24, height: 24 }} />
           {pedido.tipoEntrega === "mesa" && (
-            <Typography variant="body1">
-              Mesa {pedido.numeroMesa}
-            </Typography>
+            <Typography variant="body1">Mesa {pedido.numeroMesa}</Typography>
           )}
           {pedido.tipoEntrega === "entrega" && (
-            <Typography variant="body1">
-              {pedido.endereco}
-            </Typography>
+            <Typography variant="body1">{pedido.endereco}</Typography>
           )}
         </Box>
 
         <Divider sx={{ my: 1 }} />
 
+        {/* Itens */}
         {pedido.itens.map((item, idx) => {
           const pizzaInfo = pizzas.find(p => String(p.id) === String(item.pizzaId));
           return (
             <Box key={idx} display="flex" alignItems="center" gap={2} mb={1}>
-              <Typography variant="body2" color="secondary">
-                {item.quantidade}x
-              </Typography>
+              <Typography variant="body2" color="secondary">{item.quantidade}x</Typography>
               <Avatar
                 src={
                   pizzaInfo && pizzaInfo.imagem
@@ -111,10 +116,7 @@ const DetalhesPedido = ({ pedido, onClose }) => {
               <Box ml="auto" textAlign="right">
                 {item.observacao && item.observacao.length > 0 && (
                   <Typography variant="caption" textAlign="rigth" sx={{ display: "block" }}>
-                    Obs:{" "}
-                    {Array.isArray(item.observacao)
-                      ? item.observacao.join(", ")
-                      : item.observacao}
+                    Obs: {Array.isArray(item.observacao) ? item.observacao.join(", ") : item.observacao}
                   </Typography>
                 )}
               </Box>
@@ -124,20 +126,39 @@ const DetalhesPedido = ({ pedido, onClose }) => {
 
         <Divider sx={{ my: 1 }} />
         <Box flexDirection="row" display="flex" justifyContent="space-between">
-          <Typography variant="h6" textAlign={"right"}>
-            Total
-          </Typography>
+          <Typography variant="h6" textAlign={"right"}>Total</Typography>
           <Typography variant="h6" color="error" textAlign={"left"}>
             R$ {pedido.total.toFixed(2).replace(".", ",")}
           </Typography>
         </Box>
 
+        {/* Seleção de entregador */}
+        {pedido.status === "Entregar" && (
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <InputLabel>Selecionar Entregador</InputLabel>
+            <Select
+              value={entregadorSelecionado}
+              onChange={(e) => setEntregadorSelecionado(e.target.value)}
+              label="Selecionar Entregador"
+            >
+              {entregadoresDisponiveis.map(e => (
+                <MenuItem key={e.id} value={e.id}>
+                  {e.nome}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
+
+
+        {/* Botão */}
         {!(getButtonLabel() === "") && (
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 2, backgroundColor: theme.palette.sextatory.main }}
+            sx={{ mt: 2, backgroundColor: theme.palette.sextatory.main, color: theme.palette.primary.main, fontWeight:"bold" }}
             onClick={handleFinalizar}
+            disabled={pedido.status === "Entregar"  && !entregadorSelecionado}
           >
             {getButtonLabel()}
           </Button>

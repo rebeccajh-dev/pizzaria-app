@@ -3,6 +3,7 @@ import { Add } from "@mui/icons-material";
 import PizzaDialog from "../components/PizzaDialog";
 import { useState } from "react";
 import { usePizzas} from "../context/PizzasContext";
+import { EditOutlined, DeleteOutline } from "@mui/icons-material";
 
 const TabelaPizzas = () => {
     const { pizzas, savePizza, deletePizza } = usePizzas();
@@ -60,8 +61,8 @@ const TabelaPizzas = () => {
                     <TableCell>{pizza.categoria}</TableCell>
                     <TableCell>
                         <CardActions>
-                        <Button variant="contained"  color="success" onClick={() => handleOpenEdit(pizza)}>Editar</Button>
-                        <Button variant="contained"  color="error" onClick={() => handleDelete(pizza.id)}>Deletar</Button>
+                        <Button variant="contained"  color="success" onClick={() => handleOpenEdit(pizza)}><EditOutlined fontSize="small" /></Button>
+                        <Button variant="contained"  color="error" onClick={() => handleDelete(pizza.id)}><DeleteOutline fontSize="small" /></Button>
                         </CardActions>
                     </TableCell>
                     </TableRow>

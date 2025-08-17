@@ -35,7 +35,7 @@ const Cardapio = () => {
   };
 
   const finalizarPedido = () => {
-    toast.sucess("Pedido finalizado com sucesso!", {
+    toast.success("Pedido finalizado com sucesso!", {
       position: toast.position.top_right,
       autoClose: 3000,
     });
@@ -93,7 +93,7 @@ const Cardapio = () => {
         borderColor: theme.palette.quartiary.main,
         borderRadius: "10px",
         "&:hover": {
-          bgcolor: filtrosAtivos.includes(id) ? theme.pallete.quintary.main : theme.palette.primary.main,
+          bgcolor: filtrosAtivos.includes(id) ? theme.palette.quintary.main : theme.palette.primary.main,
         },
       })}
     >

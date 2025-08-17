@@ -3,6 +3,7 @@ import { Add } from "@mui/icons-material";
 import GarcomDialog from "../components/GarcomDialog";
 import { useState } from "react";
 import { useGarcons} from "../context/GarconsContext";
+import { EditOutlined, DeleteOutline } from "@mui/icons-material";
 
 const TabelaGarcons = ({ onSelecionarHistorico }) => {
     const { garcons, saveGarcom, deleteGarcom } = useGarcons();
@@ -62,8 +63,8 @@ const TabelaGarcons = ({ onSelecionarHistorico }) => {
                     </TableCell>
                     <TableCell>
                         <CardActions>
-                            <Button variant="contained"  color="success" onClick={() => handleOpenEdit(garcom)}>Editar</Button>
-                            <Button variant="contained"  color="error" onClick={() => handleDelete(garcom.id)}>Deletar</Button>
+                            <Button variant="contained"  color="success" onClick={() => handleOpenEdit(garcom)}><EditOutlined fontSize="small" /></Button>
+                            <Button variant="contained"  color="error" onClick={() => handleDelete(garcom.id)}><DeleteOutline fontSize="small" /></Button>
                         </CardActions>
                     </TableCell>
                     </TableRow>

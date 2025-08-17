@@ -8,12 +8,15 @@ import HistoricoEntregas from "../components/HistoricoEntregas";
 import PizzaCard from "../components/PizzaCard";
 import HistoricoAtendimentos from "../components/HistoricoAtendimentos";
 
+import { usePizzas } from "../context/PizzasContext";
+
 const Admin = () => {
   const theme = useTheme();
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
   const [tab, setTab] = useState(0);
   const [entregadorSelecionado, setEntregadorSelecionado] = useState(null);
   const [garcomSelecionado, setGarcomSelecionado] = useState(null);
+  const { pizzas } = usePizzas();
 
   if (usuarioLogado?.tipo !== "admin") {
     return <div>não tenho acesso</div>;
@@ -50,7 +53,7 @@ const Admin = () => {
         {tab === 0 && <TabelaPizzas />}
         {tab === 1 && <TabelaEntregadores onSelecionarHistorico={setEntregadorSelecionado}/>}
         {tab === 2 && <TabelaGarcons onSelecionarHistorico={setGarcomSelecionado}/>}
-        {tab === 3 && <PizzaCard />}
+        {tab === 3 && <PizzaCard pizzas={pizzas} />}
       </Paper>
 
       {/* Painel de detalhes */}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -6,11 +6,14 @@ import {
   Button,
   Paper,
   Divider,
-  MenuItem
+  MenuItem,
+  Grid,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import ItemPedido from "../components/ItemPedido"; 
-import { toast } from 'react-toastify';
+import ItemPedido from "../components/ItemPedido";
+import { toast } from "react-toastify";
 import { usePizzas } from "../context/PizzasContext";
 import { usePedidos } from "../context/PedidosContext";
 
@@ -21,14 +24,16 @@ const Pedido = () => {
   const [tipoEntrega, setTipoEntrega] = useState("mesa");
   const [numeroMesa, setNumeroMesa] = useState("");
   const [endereco, setEndereco] = useState("");
+  const [nomeCliente, setNomeCliente] = useState("");
+  const [retirarTaxaServico, setRetirarTaxaServico] = useState(false);
+
   const { pizzas } = usePizzas();
-  const { pedidos, createPedido} = usePedidos();
+  const { pedidos, createPedido } = usePedidos();
 
   useEffect(() => {
     const carrinhoSalvo = JSON.parse(localStorage.getItem("carrinho")) || [];
     setCarrinho(carrinhoSalvo);
   }, []);
-
 
   const handleQuantidadeChange = (index, novaQtd) => {
     const atualizado = [...carrinho];
@@ -43,63 +48,73 @@ const Pedido = () => {
     localStorage.setItem("carrinho", JSON.stringify(atualizado));
   };
 
-  const totalGeral = carrinho.reduce(
+  const subTotal = carrinho.reduce(
     (acc, item) => acc + item.preco * item.quantidade,
     0
   );
 
+  const taxaServico = tipoEntrega === "mesa" && !retirarTaxaServico ? subTotal * 0.1 : 0;
+  const taxaEntrega = tipoEntrega === "entrega" ? subTotal * 0.2 : 0;
+  const totalFinal = subTotal + taxaServico + taxaEntrega;
+
   const handleFinalizarPedido = async () => {
     if (!carrinho.length) {
-      toast.error("Seu carrinho está vazio!", {autoClose: 3000});
+      toast.error("Seu carrinho está vazio!", { autoClose: 3000 });
+      return;
+    }
+
+    if (!nomeCliente) {
+      toast("Por favor, informe o nome do cliente", { autoClose: 3000 });
       return;
     }
 
     if (tipoEntrega === "mesa" && !numeroMesa) {
-      toast("Por favor, informe o número da mesa", {autoClose: 3000});
+      toast("Por favor, informe o número da mesa", { autoClose: 3000 });
       return;
     }
 
     if (tipoEntrega === "entrega" && !endereco) {
-      toast("Por favor, informe o endereço para entrega", {autoClose: 3000});
+      toast("Por favor, informe o endereço para entrega", { autoClose: 3000 });
       return;
     }
 
     const novoPedido = {
       usuarioId: 2,
-      itens: carrinho.map(item => ({
+      cliente: nomeCliente,
+      itens: carrinho.map((item) => ({
         pizzaId: item.id,
         nome: item.nome,
         observacao: item.observacoes || [],
         tamanho: item.tamanho,
         preco: item.preco.toFixed(2),
         quantidade: item.quantidade,
-        total: item.preco * item.quantidade
+        total: item.preco * item.quantidade,
       })),
       tipoEntrega,
       numeroMesa: tipoEntrega === "mesa" ? numeroMesa : null,
       endereco: tipoEntrega === "entrega" ? endereco : null,
-      total: totalGeral,
-      status: "Novo"
+      total: totalFinal.toFixed(2),
+      status: "Novo",
     };
 
     try {
       const nextId = String(
-        pedidos.length ? Math.max(...pedidos.map(p => Number(p.id))) + 1 : 1
+        pedidos.length ? Math.max(...pedidos.map((p) => Number(p.id))) + 1 : 1
       );
 
-      createPedido(nextId,novoPedido);
+      createPedido(nextId, novoPedido);
 
       localStorage.removeItem("carrinho");
-      toast.success("Pedido realizado com sucesso!", {autoClose: 3000});
+      toast.success("Pedido realizado com sucesso!", { autoClose: 3000 });
       navigate("/pages/cardapio");
     } catch (err) {
       console.error("Erro ao salvar pedido:", err);
-      toast.error("Erro ao finalizar pedido", {autoClose: 3000});
+      toast.error("Erro ao finalizar pedido", { autoClose: 3000 });
     }
   };
 
   return (
-    <Box sx={{ p: 2, maxWidth: 600, mx: "auto" }}>
+    <Box sx={{ p: 2, maxWidth: 600, mx: "auto", textAlign:"left" }}>
       {carrinho.length === 0 ? (
         <Typography>Seu carrinho está vazio</Typography>
       ) : (
@@ -127,42 +142,106 @@ const Pedido = () => {
 
           <Divider sx={{ my: 2 }} />
 
-          {/* Tipo de entrega */}
+          {/* Nome do cliente */}
           <TextField
-            select
-            label="Tipo de Entrega"
-            value={tipoEntrega}
-            onChange={(e) => setTipoEntrega(e.target.value)}
+            label="Nome do Cliente"
+            value={nomeCliente}
+            onChange={(e) => setNomeCliente(e.target.value)}
             fullWidth
             sx={{ mb: 2 }}
-          >
-            <MenuItem value="mesa">Mesa</MenuItem>
-            <MenuItem value="entrega">Entrega</MenuItem>
-          </TextField>
+          />
 
+          {/* Tipo de entrega e mesa/endereço na mesma linha */}
+          <Grid container spacing={1} sx={{ mb: 2 }} width="100%">
+            <Grid item  width="30%">
+              <TextField
+                select
+                label="Tipo de Entrega"
+                value={tipoEntrega}
+                onChange={(e) => setTipoEntrega(e.target.value)}
+                fullWidth
+              >
+                <MenuItem value="mesa">Mesa</MenuItem>
+                <MenuItem value="entrega">Entrega</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid item sx={{width:{xs:"67%",md:"68%"}}}>
+              {tipoEntrega === "mesa" ? (
+                <TextField
+                  label="Número da Mesa"
+                  value={numeroMesa}
+                  onChange={(e) => setNumeroMesa(e.target.value)}
+                  fullWidth
+                />
+              ) : (
+                <TextField
+                  label="Endereço"
+                  value={endereco}
+                  onChange={(e) => setEndereco(e.target.value)}
+                  fullWidth
+                />
+              )}
+            </Grid>
+          </Grid>
+
+          {/* Taxas */}
           {tipoEntrega === "mesa" && (
-            <TextField
-              label="Número da Mesa"
-              value={numeroMesa}
-              onChange={(e) => setNumeroMesa(e.target.value)}
-              fullWidth
-              sx={{ mb: 2 }}
-            />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={retirarTaxaServico}
+                    onChange={(e) => setRetirarTaxaServico(e.target.checked)}
+                  />
+
+                }
+                
+                label="Retirar 10% de taxa de serviço"
+              />
+          )}
+
+          <Divider sx={{ mb: 2 }} />
+
+          {/* Subtotal */}
+          <Grid display="flex" flexDirection="row" justifyContent="space-between">
+            <Typography variant="body1" align="left">
+              Subtotal:
+            </Typography>
+            <Typography variant="body1" align="right">
+              R$ {subTotal.toFixed(2)}
+            </Typography>
+          </Grid>
+
+          {!retirarTaxaServico && (
+            <Grid display="flex" flexDirection="row" justifyContent="space-between">
+              <Typography variant="body1" align="left">
+                Taxa de Serviço:
+              </Typography>
+              <Typography variant="body1" align="right">
+                R$ {taxaServico.toFixed(2)}
+              </Typography>
+            </Grid>
           )}
 
           {tipoEntrega === "entrega" && (
-            <TextField
-              label="Endereço"
-              value={endereco}
-              onChange={(e) => setEndereco(e.target.value)}
-              fullWidth
-              sx={{ mb: 2 }}
-            />
+            <Grid display="flex" flexDirection="row" justifyContent="space-between">
+              <Typography variant="body1" align="left">
+                Taxa de Serviço:
+              </Typography>
+              <Typography variant="body1" align="right">
+                Taxa de Entrega: R$ {taxaEntrega.toFixed(2)}
+              </Typography>
+            </Grid>
           )}
 
-          <Typography variant="h6" align="right">
-            Total: R$ {totalGeral.toFixed(2)}
-          </Typography>
+          {/* Total */}
+          <Grid display="flex" flexDirection="row" justifyContent="space-between" sx={{ mt: 1 }}>
+            <Typography variant="h6" align="left">
+              Total:
+            </Typography>
+            <Typography variant="h6" align="right">
+              R$ {totalFinal.toFixed(2)}
+            </Typography>
+          </Grid>
 
           <Button
             variant="contained"

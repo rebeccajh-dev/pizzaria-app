@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent, Typography, Button, Box, Chip } from "@mui/material";
 import { usePedidos } from "../context/PedidosContext";
+import { InfoOutlined } from "@mui/icons-material";
 
 
 const statusColors = {
@@ -29,7 +30,7 @@ export default function OrderCard({ pedido, onDetalhesClick }) {
   };
 
   return (
-    <Card variant="outlined" sx={{ mb: 1 }}>
+    <Card variant="outlined" sx={{ mb: 1, borderRadius:"0px"}}>
       <CardContent
         sx={{
           display: "flex",
@@ -54,9 +55,10 @@ export default function OrderCard({ pedido, onDetalhesClick }) {
           </Typography>
         </Box>
 
+        <Box flexDirection="row" display="flex" sx={{ width: { xs: "100%", sm: "260px"}}}>
         <Box
           sx={{
-            width: { xs: "100%", sm: "100px"},
+            width: { xs: "80%", sm: "200px"},
             bgcolor: actionColors[pedido.status] || "primary.main",
             color: "white",
             display: "flex",
@@ -71,13 +73,12 @@ export default function OrderCard({ pedido, onDetalhesClick }) {
         </Box>
 
         <Button
-          variant="outlined"
-          sx={{ width: { xs: "100%", sm: "100px"}}}
+          sx={{ width: { xs: "20%", sm: "50px"}}}
           color="error"
           onClick={() => mudarStatusEDetalhes(pedido)}
         >
-          Detalhes
-        </Button>
+          <InfoOutlined fontSize="medium" />
+        </Button></Box>
       </CardContent>
     </Card>
   );

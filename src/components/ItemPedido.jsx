@@ -1,6 +1,6 @@
 // ItemPedido.jsx
 import React from "react";
-import { Box, Typography, Avatar, TextField, IconButton } from "@mui/material";
+import { Box, Typography, Avatar, TextField, IconButton, } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const ItemPedido = ({
@@ -21,13 +21,19 @@ const ItemPedido = ({
             : "/imagens/pizza.png"
         }
         variant="square"
-        sx={{ width: 50, height: 50 }}
+        sx={{
+          width: 60,
+          height: 60,
+          border: "1px solid",
+          borderColor:"error",
+          borderRadius: "8px"     // cantos arredondados (pode ser "50%" para círculo)
+        }}
       />
-      <Box flexGrow={1}>
+      <Box flexGrow={1} textAlign="left">
         <Typography fontWeight="bold">{item.nome}</Typography>
-        <Typography variant="caption">{item.tamanho}</Typography>
+        <Typography variant="body2">{item.tamanho}</Typography>
         {item.observacoes && (
-          <Typography variant="caption" display="block">
+          <Typography variant="caption" display="block" >
             Obs: {item.observacoes}
           </Typography>
         )}

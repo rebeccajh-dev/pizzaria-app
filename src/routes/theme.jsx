@@ -24,7 +24,7 @@ export const getTheme = (darkMode) =>
               paper: "#212020ff",
             },
             text: {
-              primary: "#ffffff", // branco no dark
+              primary: "#ccccccff",
               secondary: "#b3b3b3",
             },
           }
@@ -41,51 +41,65 @@ export const getTheme = (darkMode) =>
     },
 
     components: {
-        MuiOutlinedInput: {
-          styleOverrides: {
-            root: {
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: "gray", // cor padrão da borda
-              },
-              "&:hover .MuiOutlinedInput-notchedOutline": {
-                borderColor: "green", // cor ao passar mouse
-              },
-              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "green", // cor quando o input está em foco
-                borderWidth: "2px",
-              },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root:({ theme }) => ({
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "gray", // cor padrão
             },
-          },
-        },
-        MuiInputLabel: {
-          styleOverrides: {
-            root: {
-              "&.Mui-focused": {
-                color: "green", // muda a cor do label quando em foco
-              },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: theme.palette.secondary.main, // hover
             },
-          },
-        },
-        MuiCard: {
-          styleOverrides: {
-            root: ({ theme }) => {
-              if (theme.palette.mode === "dark") {
-                return {
-                  backgroundColor: "#2b2828ff",
-                  color: "#ffffffff",
-                  borderRadius: "12px",
-                  boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.6)",
-                };
-              } else {
-                return {
-                  backgroundColor: "#ffffff",
-                  color: "#000000",
-                  borderRadius: "12px",
-                  boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
-                };
-              }
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: theme.palette.secondary.main, // foco
+              borderWidth: "2px",
             },
-          },
+          }),
         },
       },
-    });
+      MuiCheckbox: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            color: "gray", // cor padrão da borda/ícone
+            "&:hover": {
+              color: theme.palette.secondary.main, // hover
+            },
+            "&.Mui-checked": {
+              color: theme.palette.secondary.main, // quando marcado
+            },
+            "&.Mui-focusVisible": {
+              outline: `2px solid ${theme.palette.secondary.main}`, // foco via teclado
+              outlineOffset: 2,
+            },
+          }),
+        },
+      },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            "&.Mui-focused": {
+              color: theme.palette.mode === "dark" ? "#cececeff" : "#585858ff",
+            },
+          }),
+        },
+      },
+      MuiCard: {
+        styleOverrides: {
+          root: ({ theme }) =>
+            theme.palette.mode === "dark"
+              ? {
+                  backgroundColor: "#2b2828ff",
+                  color: "#fff",
+                  borderRadius: "12px",
+                  boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.6)",
+                }
+              : {
+                  backgroundColor: "#ffffff",
+                  color: "#000",
+                  borderRadius: "12px",
+                  boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+                },
+        },
+      },
+    },
+  });

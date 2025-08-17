@@ -2,6 +2,7 @@ import React from "react";
 import { AppBar, Toolbar, Typography, Box, Button, useMediaQuery} from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Header = () => {
   const location = useLocation();
@@ -17,8 +18,7 @@ const Header = () => {
   if (usuarioLogado) {
     if (usuarioLogado.tipo === "cliente") {
       navLinks = [
-        { label: "Cardápio", to: "/pages/cardapio" },
-        { label: "Pedidos", to: "/pages/pedido" }
+        { label: "Cardápio", to: "/pages/cardapio" }
       ];
     } else if (usuarioLogado.tipo === "funcionario") {
       navLinks = [
@@ -37,6 +37,10 @@ const Header = () => {
     localStorage.removeItem("usuarioLogado");
     navigate("/");
   };
+
+  const handlePedido = () => {
+    navigate("/pages/pedido")
+  }
 
   return (
     //{//mudar isso aqui}
@@ -75,7 +79,12 @@ const Header = () => {
             ))}
           </Box>
         )}
-
+        <Box display="flex" flexDirection="row">
+        {!isLoginPage && usuarioLogado.tipo === "cliente" &&(
+          <Button onClick={handlePedido}>
+              <ShoppingCartIcon fontSize="medium"/>
+            </Button>
+        )}
         {/* Botão Logout */}
         {!isLoginPage && usuarioLogado && (
           <Button
@@ -91,7 +100,7 @@ const Header = () => {
                 Sair
               </Button>
 
-        )}
+        )}</Box>
       </Toolbar>
     </AppBar>
   );

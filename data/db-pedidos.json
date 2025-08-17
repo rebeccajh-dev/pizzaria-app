@@ -2,6 +2,7 @@
   "pedidos": [
     {
       "id": "1",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -26,11 +27,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "5",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 123.6,
       "status": "Finalizado"
     },
     {
       "id": "2",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -49,7 +53,7 @@
           "tamanho": "Grande",
           "preco": "62.85",
           "quantidade": 1,
-          "total": 62.849999999999994
+          "total": 62.84
         },
         {
           "pizzaId": "4",
@@ -64,11 +68,14 @@
       "tipoEntrega": "entrega",
       "numeroMesa": null,
       "endereco": "Rua Amarando, 34, Barra",
+      "entregador": "E2501",
+      "garcom": null,
       "total": 185.85,
       "status": "Finalizado"
     },
     {
       "id": "3",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -78,7 +85,7 @@
           "tamanho": "Média",
           "preco": "47.88",
           "quantidade": 1,
-          "total": 47.879999999999995
+          "total": 47.87
         },
         {
           "pizzaId": "9",
@@ -93,11 +100,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "2",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 89.38,
       "status": "Em preparo"
     },
     {
       "id": "4",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -122,11 +132,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "3",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 89.88,
       "status": "Servir"
     },
     {
       "id": "5",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -166,12 +179,15 @@
       ],
       "tipoEntrega": "entrega",
       "numeroMesa": null,
-      "endereco": "sjdkfdskbfbsdbf",
-      "total": 531.1999999999999,
+      "endereco": "Rua B, 23, Centro",
+      "entregador": "E2501",
+      "garcom": null,
+      "total": 531.19,
       "status": "Finalizado"
     },
     {
       "id": "6",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -187,11 +203,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "5",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 48,
       "status": "Em preparo"
     },
     {
       "id": "7",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -207,11 +226,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "cliente@pizzaria.com",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 48,
       "status": "Novo"
     },
     {
       "id": "8",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -227,11 +249,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "jdfksdfbsc",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 39.48,
       "status": "Servir"
     },
     {
       "id": "9",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -247,11 +272,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "ajhdkabibad",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 43.8,
       "status": "Servir"
     },
     {
       "id": "10",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -267,11 +295,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "ajjk",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 39.48,
       "status": "Em preparo"
     },
     {
       "id": "11",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -323,11 +354,14 @@
       "tipoEntrega": "entrega",
       "numeroMesa": null,
       "endereco": "Rua A, 1, Manoa",
-      "total": 209.79999999999998,
-      "status": "Em preparo"
+      "entregador": "E2502",
+      "garcom": null,
+      "total": 209.79,
+      "status": "Finalizado"
     },
     {
       "id": "12",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -352,11 +386,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "34",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 98.4,
       "status": "Novo"
     },
     {
       "id": "13",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -366,7 +403,7 @@
           "tamanho": "Média",
           "preco": "41.88",
           "quantidade": 1,
-          "total": 41.879999999999995
+          "total": 41.87
         },
         {
           "pizzaId": "6",
@@ -390,11 +427,14 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "2",
       "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
       "total": 223.32,
       "status": "Novo"
     },
     {
       "id": "14",
+      "NomeCliente": null,
       "usuarioId": 2,
       "itens": [
         {
@@ -404,7 +444,7 @@
           "tamanho": "Média",
           "preco": "47.88",
           "quantidade": 1,
-          "total": 47.879999999999995
+          "total": 47.87
         },
         {
           "pizzaId": "13",
@@ -422,7 +462,7 @@
           "tamanho": "Média",
           "preco": "150.84",
           "quantidade": 3,
-          "total": 452.5199999999999
+          "total": 452.51
         },
         {
           "pizzaId": "15",
@@ -437,7 +477,9 @@
       "tipoEntrega": "mesa",
       "numeroMesa": "9",
       "endereco": null,
-      "total": 587.3999999999999,
+      "entregador": null,
+      "garcom": "G2501",
+      "total": 587.39,
       "status": "Em preparo"
     }
   ]

@@ -47,10 +47,9 @@ const Cozinha = () => {
         <Tabs
           value={tab}
           onChange={(e, newValue) => setTab(newValue)}
-          textColor="#c40f0fff" //{ * ajeitar pq ele so le string* }
           sx={{
-            "& .MuiTab-root": { color: theme.palette.text.quartiary },
-            "& .Mui-selected": { color: theme.palette.text.primary, fontWeight: "bold" },
+            "& .MuiTab-root": { color: theme.palette.sextatory.main },
+            "& .Mui-selected": { color: theme.palette.secondary.main, fontWeight: "bold" },
             "& .MuiTabs-indicator": { backgroundColor: theme.palette.text.quartiary },
           }}
         >

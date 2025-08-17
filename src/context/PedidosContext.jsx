@@ -20,18 +20,32 @@ export function PedidosProvider({ children }) {
     }
   };
 
-  const updatePedidoStatus = async (id, status) => {
-    try {
-      await fetch(`${baseUrl}/${id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
-      });
-      fetchPedidos();
-    } catch (error) {
-      toast.error("Erro ao atualizar status:", error);
-    }
-  };
+  const updatePedidoStatus = async (id, novoStatus, extraData = {}) => {
+  try {
+    // busca o pedido atual no servidor
+    const res = await fetch(`${baseUrl}/${id}`);
+    const pedido = await res.json();
+
+    // monta os dados atualizados
+    const pedidoAtualizado = { ...pedido, status: novoStatus, ...extraData };
+
+    await fetch(`${baseUrl}/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(pedidoAtualizado),
+    });
+
+    // atualiza no state local
+    setPedidos(prev =>
+      prev.map(p => (p.id === id ? pedidoAtualizado : p))
+    );
+
+    toast.success("Status do pedido atualizado!");
+  } catch (err) {
+    toast.error("Erro ao atualizar pedido:", err);
+  }
+};
+
 
   const createPedido = async (nextId, novoPedido) =>{
     try {

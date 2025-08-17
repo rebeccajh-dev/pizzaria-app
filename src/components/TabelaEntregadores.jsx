@@ -3,6 +3,7 @@ import { Add } from "@mui/icons-material";
 import EntregadorDialog from "../components/EntregadorDialog";
 import { useState } from "react";
 import { useEntregadores} from "../context/EntregadoresContext";
+import { EditOutlined, DeleteOutline } from "@mui/icons-material";
 
 const TabelaEntregadores = ({ onSelecionarHistorico }) => {
     const { entregadores, saveEntregador, deleteEntregador } = useEntregadores();
@@ -62,8 +63,8 @@ const TabelaEntregadores = ({ onSelecionarHistorico }) => {
                     </TableCell>
                     <TableCell>
                         <CardActions>
-                            <Button variant="contained"  color="success" onClick={() => handleOpenEdit(entregador)}>Editar</Button>
-                            <Button variant="contained"  color="error" onClick={() => handleDelete(entregador.id)}>Deletar</Button>
+                            <Button variant="contained"  color="success" onClick={() => handleOpenEdit(entregador)}><EditOutlined fontSize="small" /></Button>
+                            <Button variant="contained"  color="error" onClick={() => handleDelete(entregador.id)}><DeleteOutline fontSize="small" /></Button>
                         </CardActions>
                     </TableCell>
                     </TableRow>

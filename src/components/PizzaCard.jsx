@@ -5,24 +5,17 @@ import {
   FormControlLabel, FormControl, FormLabel
 } from "@mui/material";
 import { toast } from 'react-toastify';
-import { usePizzas } from '../context/PizzasContext';
 
 // Lista de tamanhos disponíveis 
 const tamanhosDisponiveis = ['Pequena', 'Média', 'Grande'];
 
-const PizzaCard = () => {
+const PizzaCard = ({ pizzas }) => {
   const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado")) || {};
-
-  const { pizzas } = usePizzas();
-  
   const [pizzaSelecionada, setPizzaSelecionada] = useState(null);
   const [quantidade, setQuantidade] = useState(1);
   const [tamanho, setTamanho] = useState('Média');
   const [observacoes, setObservacoes] = useState('');
 
-
-  
-  
   const handleAbrirDetalhes = (pizza) => {
     setPizzaSelecionada(pizza);
     setQuantidade(1);
