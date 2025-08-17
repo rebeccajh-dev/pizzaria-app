@@ -49,8 +49,8 @@ const Cozinha = () => {
           onChange={(e, newValue) => setTab(newValue)}
           sx={{
             "& .MuiTab-root": { color: theme.palette.sextatory.main },
-            "& .Mui-selected": { color: theme.palette.secondary.main, fontWeight: "bold" },
-            "& .MuiTabs-indicator": { backgroundColor: theme.palette.text.quartiary },
+            "& .Mui-selected": { fontWeight:"bold",color: theme.palette.secondary.main },
+            "& .MuiTabs-indicator": { backgroundColor: theme.palette.secondary.main },
           }}
         >
           <Tab label="Tudo" />
@@ -72,6 +72,7 @@ const Cozinha = () => {
           pizzas={pizzas}
           onClose={() => setPedidoSelecionado(null)}
           onStatusChange={fetchPedidos}
+          modo="funcionario"
         />
       </Paper>
     </Box>

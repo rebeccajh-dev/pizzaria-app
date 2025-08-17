@@ -70,8 +70,8 @@ const Entregas = () => {
           pizzas={pizzas}
           onClose={() => setPedidoSelecionado(null)}
           onStatusChange={fetchPedidos}
+          modo="funcionario"
         />
-
       </Paper>
     </Box>
   );

@@ -51,6 +51,7 @@ const Login = () => {
       );
 
       const usuarioAutenticado = {
+        id: usuarioEncontrado.id,
         nome: usuarioEncontrado.nome,
         email: usuarioEncontrado.email,
         tipo: usuarioEncontrado.tipo,

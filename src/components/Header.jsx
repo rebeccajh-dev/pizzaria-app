@@ -55,7 +55,7 @@ const Header = () => {
             alt="Logo"
             sx={{ height: 40, mr: 2 }}
           />
-          {!isSmallScreen && <Typography variant="h6" color="primary" fontSize="17px"  >MammaMia Pizzaria</Typography>}
+          {!isSmallScreen && <Typography variant="h6" color="primary" fontSize="17px" fontWeight="bold" >MammaMia Pizzaria</Typography>}
         </Box>
 
         {/* Barra de navegação centralizada */}

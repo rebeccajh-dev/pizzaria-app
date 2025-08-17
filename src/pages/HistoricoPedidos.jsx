@@ -66,9 +66,9 @@ const HistoricoPedidos = () => {
           pedido={pedidoSelecionado}
           pizzas={pizzas}
           onClose={() => setPedidoSelecionado(null)}
-          onStatusChange={ fetchPedidos}
+          onStatusChange={fetchPedidos}
+          modo="funcionario"
         />
-
       </Paper>
     </Box>
   );

@@ -2,8 +2,8 @@
   "pedidos": [
     {
       "id": "1",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "8",
@@ -34,8 +34,8 @@
     },
     {
       "id": "2",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "14",
@@ -75,8 +75,8 @@
     },
     {
       "id": "3",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "3",
@@ -107,8 +107,8 @@
     },
     {
       "id": "4",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "4",
@@ -139,8 +139,8 @@
     },
     {
       "id": "5",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": 5,
@@ -187,8 +187,8 @@
     },
     {
       "id": "6",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "8",
@@ -210,8 +210,8 @@
     },
     {
       "id": "7",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "8",
@@ -233,8 +233,8 @@
     },
     {
       "id": "8",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "1",
@@ -256,8 +256,8 @@
     },
     {
       "id": "9",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "2",
@@ -279,8 +279,8 @@
     },
     {
       "id": "10",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "1",
@@ -302,8 +302,8 @@
     },
     {
       "id": "11",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": 3,
@@ -361,8 +361,8 @@
     },
     {
       "id": "12",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "4",
@@ -393,8 +393,8 @@
     },
     {
       "id": "13",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "5",
@@ -434,8 +434,8 @@
     },
     {
       "id": "14",
-      "NomeCliente": null,
-      "usuarioId": 2,
+      "cliente": null,
+      "usuarioId": 4,
       "itens": [
         {
           "pizzaId": "3",
@@ -481,6 +481,47 @@
       "garcom": "G2501",
       "total": 587.39,
       "status": "Em preparo"
+    },
+    {
+      "id": "15",
+      "cliente": "Klissia",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "4",
+          "nome": "Quatro Queijos",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "50.40",
+          "quantidade": 1,
+          "total": 50.4
+        },
+        {
+          "pizzaId": "2",
+          "nome": "Calabresa",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "43.80",
+          "quantidade": 1,
+          "total": 43.8
+        },
+        {
+          "pizzaId": "6",
+          "nome": "Banana com Canela",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "37.80",
+          "quantidade": 1,
+          "total": 37.8
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "2",
+      "endereco": null,
+      "entregador": null,
+      "garcom": "G2501",
+      "total": "145.20",
+      "status": "Finalizado"
     }
   ]
 }
