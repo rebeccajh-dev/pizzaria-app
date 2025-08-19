@@ -302,4 +302,3 @@ const Pedido = () => {
 };
 
 export default Pedido;
-
