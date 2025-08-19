@@ -25,6 +25,8 @@ const Cozinha = () => {
   if (tab === 0) return pedidosAtivos; // Tudo = todos ativos
   if (tab === 1) return pedidosAtivos.filter(o => o.status === "Novo");
   if (tab === 2) return pedidosAtivos.filter(o => o.status === "Em preparo");
+  if (tab === 3) return pedidosAtivos.filter(o => o.tipoEntrega === "mesa");
+  if (tab === 4) return pedidosAtivos.filter(o => o.tipoEntrega === "entrega");
   return [];
   };
 
@@ -48,6 +50,7 @@ const Cozinha = () => {
           value={tab}
           onChange={(e, newValue) => setTab(newValue)}
           sx={{
+            color: theme.palette.secondary.main,
             "& .MuiTab-root": { color: theme.palette.sextatory.main },
             "& .Mui-selected": { fontWeight:"bold",color: theme.palette.secondary.main },
             "& .MuiTabs-indicator": { backgroundColor: theme.palette.secondary.main },
@@ -56,6 +59,8 @@ const Cozinha = () => {
           <Tab label="Tudo" />
           <Tab label="Novo" />
           <Tab label="Em preparo" />
+          <Tab label="Mesa" />
+          <Tab label="Entrega" />
         </Tabs>
 
         <OrdersList

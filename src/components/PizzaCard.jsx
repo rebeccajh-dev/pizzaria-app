@@ -56,6 +56,7 @@ const PizzaCard = ({ pizzas }) => {
     if (bloqueado) {
       toast.error("O carrinho está bloqueado. Não é possível adicionar itens.");
     } else {
+      localStorage.setItem("carrinho", JSON.stringify(carrinho));
       toast.success(`${pizzaSelecionada.nome} (${tamanho}) adicionada ao carrinho!`);
       handleFecharDetalhes();
     }

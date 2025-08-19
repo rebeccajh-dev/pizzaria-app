@@ -102,8 +102,8 @@ const Pedido = () => {
       return;
     }
 
-    if (!garcomSelecionado) {
-      toast("Por favor, selecione um garçom", { autoClose: 3000 });
+    if (!garcomSelecionado && tipoEntrega === "mesa") {
+      toast("Por favor, selcione um garçom", { autoClose: 3000 });
       return;
     }
 

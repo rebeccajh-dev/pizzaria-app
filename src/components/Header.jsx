@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Box, Button, useMediaQuery} from "@mui/mat
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Header = () => {
   const location = useLocation();
@@ -97,7 +98,7 @@ const Header = () => {
                 color: theme.palette.primary.main,
                 }}
               >
-                Sair
+                <LogoutIcon/>
               </Button>
 
         )}</Box>

@@ -44,7 +44,6 @@ const Entregas = () => {
         <Tabs
           value={tab}
           onChange={(e, newValue) => setTab(newValue)}
-          textColor="#c40f0fff"
           sx={{
             "& .MuiTab-root": { color: theme.palette.sextatory.main },
             "& .Mui-selected": { color: theme.palette.secondary.main, fontWeight: "bold" },
