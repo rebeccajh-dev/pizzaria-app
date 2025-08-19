@@ -1,14 +1,14 @@
-import React, { useContext } from "react";
+
 import Slider from "react-slick";
 import { Card, CardMedia, Box, Typography, useTheme } from "@mui/material";
 import { toast } from "react-toastify";
-import { PizzasContext } from "../context/PizzasContext";
+import { usePizzas } from "../context/PizzasContext.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const ImageCarousel = () => {
   const theme = useTheme();
-  const pizzas = useContext(PizzasContext);
+  const { pizzas } = usePizzas();
 
   // se o context ainda não carregou, exibe nada ou loading
   if (!pizzas || pizzas.length === 0) return null;

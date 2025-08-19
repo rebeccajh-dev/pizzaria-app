@@ -65,7 +65,7 @@ const HistoricoEntregas = ({ entregador, onClose }) => {
         <Typography>Nenhuma entrega registrada.</Typography>
       )}
 
-      <Button onClick={onClose} sx={{ mt: 2 }} variant="outlined">
+      <Button onClick={onClose} sx={{ mt: 2 }} variant="outlined" >
         Fechar
       </Button>
     </Box>

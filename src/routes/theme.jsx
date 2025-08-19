@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
 export const baseColors = {
-  primary: { main: "#ffffff" },
+  primary: { main: "#ffffffff" },
   secondary: { main: "#a81010" },
   tertiary: { main: "#558858" },
   quartiary: { main: "#60a76f" },

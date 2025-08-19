@@ -545,6 +545,47 @@
       "garcom": null,
       "total": "52.56",
       "status": "Finalizado"
+    },
+    {
+      "id": "17",
+      "cliente": "Julia",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "5",
+          "nome": "Chocolate com Morango",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "41.88",
+          "quantidade": 1,
+          "total": 41.879999999999995
+        },
+        {
+          "pizzaId": "10",
+          "nome": "Palmito",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "46.80",
+          "quantidade": 1,
+          "total": 46.8
+        },
+        {
+          "pizzaId": "8",
+          "nome": "Vegana de Legumes",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "48.00",
+          "quantidade": 1,
+          "total": 48
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "23",
+      "endereco": null,
+      "entregador": null,
+      "garcom": "G2502",
+      "total": "136.68",
+      "status": "Finalizado"
     }
   ]
 }

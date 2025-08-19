@@ -11,6 +11,7 @@ import Entregas from '../pages/Entregas';
 import NotFound from '../pages/NotFound';
 import Pedido from '../pages/Pedido';
 import HistoricoPedidos from '../pages/HistoricoPedidos';
+import ColorPicker from '../pages/Personalizacao';
 
 import { PedidosProvider } from '../context/PedidosContext';
 import { PizzasProvider } from '../context/PizzasContext';
@@ -69,6 +70,14 @@ const AppRoutes = () => (
               element={
                 <ProtectedRoute>
                   <Pedido/>
+                </ProtectedRoute>
+              } 
+            />
+             <Route 
+              path="/pages/personalizacao" 
+              element={
+                <ProtectedRoute>
+                  <ColorPicker/>
                 </ProtectedRoute>
               } 
             />

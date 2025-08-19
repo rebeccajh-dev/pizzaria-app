@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const Header = () => {
   const location = useLocation();
@@ -41,6 +42,10 @@ const Header = () => {
 
   const handlePedido = () => {
     navigate("/pages/pedido")
+  }
+
+  const handlePersonalizacao = () => {
+    navigate("/pages/personalizacao")
   }
 
   return (
@@ -86,6 +91,13 @@ const Header = () => {
               <ShoppingCartIcon fontSize="medium"/>
             </Button>
         )}
+
+        {!isLoginPage && usuarioLogado.tipo === "admin" &&(
+          <Button onClick={handlePersonalizacao}>
+              <SettingsIcon/>
+            </Button>
+        )}
+
         {/* Botão Logout */}
         {!isLoginPage && usuarioLogado && (
           <Button

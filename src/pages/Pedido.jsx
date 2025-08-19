@@ -26,7 +26,6 @@ import { useGarcons } from "../context/GarconsContext";
 
 const Pedido = () => {
   const navigate = useNavigate();
-  const [tab, setTab] = useState(0);
   const [carrinho, setCarrinho] = useState([]);
   const [tipoEntrega, setTipoEntrega] = useState("mesa");
   const [numeroMesa, setNumeroMesa] = useState("");
@@ -50,14 +49,6 @@ const Pedido = () => {
     const carrinhoSalvo = JSON.parse(localStorage.getItem("carrinho")) || [];
     setCarrinho(carrinhoSalvo);
   }, []);
-
-  const filteredOrders = () => {
-    if (tab === 0) return pedidos;
-    if (tab === 1) return pedidos.filter(p => p.status === "Novo");
-    if (tab === 2) return pedidos.filter(p => p.status === "Em preparo");
-    if (tab === 3) return pedidos.filter(p => p.status === "Finalizado");
-    return [];
-  };
 
   const handleQuantidadeChange = (index, novaQtd) => {
     const atualizado = [...carrinho];
@@ -152,65 +143,9 @@ const Pedido = () => {
       {pedidoAtivo ? (
         <DetalhesPedido pedido={pedidoAtivo} onClose={() => {}} modo="cliente" />
       ) : carrinho.length === 0 ? (
-        <>
-          <Paper sx={{ mb: 2, backgroundColor: "transparent", boxShadow: "none" }}>
-            <Tabs
-  value={tab}
-  onChange={(e, newValue) => setTab(newValue)}
-  textColor="secondary"
-  indicatorColor="secondary"
-  sx={{
-    "& .MuiTab-root": {
-      color: "#FF5A5F",          // cor padrão
-      backgroundColor: "transparent",
-      textTransform: "none",
-      "&:hover": {
-        backgroundColor: "rgba(255,90,95,0.1)", // hover leve
-      },
-    },
-    "& .Mui-selected": {
-      color: "#ffffff",           // cor do texto da aba selecionada
-      fontWeight: "bold",
-      backgroundColor: "#FF5A5F", // fundo da aba ativa
-    },
-    "& .MuiTabs-indicator": {
-      backgroundColor: "#FF5A5F",
-    },
-  }}
->
-  <Tab label="Todos" disableRipple />
-  <Tab label="Novo" disableRipple />
-  <Tab label="Em preparo" disableRipple />
-  <Tab label="Finalizado" disableRipple />
-</Tabs>
-
-
-</Paper>
-
-
-          {filteredOrders().length === 0 ? (
-            <Typography sx={{ textAlign: "center", p: 3 }}>
-              Nenhum pedido encontrado.
-            </Typography>
-          ) : (
-            filteredOrders().map((pedido) => (
-              <Paper key={pedido.id} sx={{ p: 2, mb: 2 }}>
-                <Typography variant="h6">Pedido #{pedido.id}</Typography>
-                <Typography
-                  sx={{
-                    color:
-                      pedido.status === "Novo" ? "#FFA500" :
-                      pedido.status === "Em preparo" ? "#2196F3" :
-                      "#4CAF50",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Status: {pedido.status}
-                </Typography>
-              </Paper>
-            ))
-          )}
-        </>
+        <Typography sx={{ textAlign: "center", p: 3 }}>
+          Nenhum pedido encontrado.
+        </Typography>
       ) : (
         <Paper sx={{ p: 2, textAlign: "left" }}>
           <Typography variant="h6" gutterBottom>
