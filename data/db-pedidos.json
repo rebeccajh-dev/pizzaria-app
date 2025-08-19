@@ -545,6 +545,29 @@
       "garcom": null,
       "total": "52.56",
       "status": "Finalizado"
+    },
+    {
+      "id": "17",
+      "cliente": "Carlos",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "10",
+          "nome": "Palmito",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "46.80",
+          "quantidade": 1,
+          "total": 46.8
+        }
+      ],
+      "tipoEntrega": "entrega",
+      "numeroMesa": null,
+      "endereco": "Rua blabla, 45",
+      "entregador": null,
+      "garcom": null,
+      "total": "56.16",
+      "status": "Finalizado"
     }
   ]
 }

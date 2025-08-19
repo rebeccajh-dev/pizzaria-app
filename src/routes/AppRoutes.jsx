@@ -11,6 +11,7 @@ import Entregas from '../pages/Entregas';
 import NotFound from '../pages/NotFound';
 import Pedido from '../pages/Pedido';
 import HistoricoPedidos from '../pages/HistoricoPedidos';
+import Pagamento from '../components/Pagamento';
 
 import { PedidosProvider } from '../context/PedidosContext';
 import { PizzasProvider } from '../context/PizzasContext';
@@ -70,8 +71,8 @@ const AppRoutes = () => (
                 <ProtectedRoute>
                   <Pedido/>
                 </ProtectedRoute>
-              } 
-            />
+              }
+              />
             <Route path="*" element={<NotFound/>} />
           </Routes>
         </GarconsProvider>
