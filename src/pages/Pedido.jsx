@@ -9,10 +9,12 @@ import {
   MenuItem,
   Grid,
   Checkbox,
-  FormControlLabel,
   FormControl,
   InputLabel,
-  Select
+  Select,
+  Tabs,
+  Tab,
+  FormControlLabel
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ItemPedido from "../components/ItemPedido";
@@ -24,33 +26,38 @@ import { useGarcons } from "../context/GarconsContext";
 
 const Pedido = () => {
   const navigate = useNavigate();
-
+  const [tab, setTab] = useState(0);
   const [carrinho, setCarrinho] = useState([]);
   const [tipoEntrega, setTipoEntrega] = useState("mesa");
   const [numeroMesa, setNumeroMesa] = useState("");
   const [endereco, setEndereco] = useState("");
   const [nomeCliente, setNomeCliente] = useState("");
   const [retirarTaxaServico, setRetirarTaxaServico] = useState(false);
+  const [garcomSelecionado, setGarcomSelecionado] = useState("");
 
   const { garcons } = useGarcons();
-  const [garcomSelecionado, setGarcomSelecionado] = useState("");
   const garconsDisponiveis = garcons.filter(g => g.status === "disponível");
-
   const { pizzas } = usePizzas();
   const { pedidos, createPedido } = usePedidos();
   
   const usuarioLogado = parseInt(JSON.parse(localStorage.getItem("usuarioLogado")).id) || {};
 
   const pedidoAtivo = pedidos.find(
-    (p) =>
-      p.usuarioId === usuarioLogado &&
-      p.status !== "Finalizado"
+    (p) => p.usuarioId === usuarioLogado && p.status !== "Finalizado"
   );
 
   useEffect(() => {
     const carrinhoSalvo = JSON.parse(localStorage.getItem("carrinho")) || [];
     setCarrinho(carrinhoSalvo);
   }, []);
+
+  const filteredOrders = () => {
+    if (tab === 0) return pedidos;
+    if (tab === 1) return pedidos.filter(p => p.status === "Novo");
+    if (tab === 2) return pedidos.filter(p => p.status === "Em preparo");
+    if (tab === 3) return pedidos.filter(p => p.status === "Finalizado");
+    return [];
+  };
 
   const handleQuantidadeChange = (index, novaQtd) => {
     const atualizado = [...carrinho];
@@ -96,7 +103,7 @@ const Pedido = () => {
     }
 
     if (!garcomSelecionado) {
-      toast("Por favor, selcione um garçom", { autoClose: 3000 });
+      toast("Por favor, selecione um garçom", { autoClose: 3000 });
       return;
     }
 
@@ -116,7 +123,7 @@ const Pedido = () => {
       numeroMesa: tipoEntrega === "mesa" ? numeroMesa : null,
       endereco: tipoEntrega === "entrega" ? endereco : null,
       entregador: null,
-      garcom:  tipoEntrega === "mesa" ? garcomSelecionado : null,
+      garcom: tipoEntrega === "mesa" ? garcomSelecionado : null,
       total: totalFinal.toFixed(2),
       status: "Novo",
     };
@@ -137,90 +144,149 @@ const Pedido = () => {
     }
   };
 
-  {/*Travar Carrinho*/}
-  pedidoAtivo? localStorage.setItem("carrinhoBloqueado", "true") : localStorage.setItem("carrinhoBloqueado", "false")
+  // Travar Carrinho
+  pedidoAtivo ? localStorage.setItem("carrinhoBloqueado", "true") : localStorage.setItem("carrinhoBloqueado", "false");
 
   return (
-    <Box sx={{ p: 2, maxWidth: 600, mx: "auto" }}>
-    {pedidoAtivo ? (
-      <DetalhesPedido pedido={pedidoAtivo} onClose={() => {}} modo="cliente" />
-    ) : carrinho.length === 0 ? (
-      <Typography>Seu carrinho está vazio</Typography>
-    ) : (
-      <Paper sx={{ p: 2, textAlign: "left" }}>
-        <Typography variant="h6" gutterBottom>
-          Meu Pedido
-        </Typography>
-        <Divider sx={{ mb: 2 }} />
+    <Box sx={{ p: 2, maxWidth: 800, mx: "auto" }}>
+      {pedidoAtivo ? (
+        <DetalhesPedido pedido={pedidoAtivo} onClose={() => {}} modo="cliente" />
+      ) : carrinho.length === 0 ? (
+        <>
+          <Paper sx={{ mb: 2, backgroundColor: "transparent", boxShadow: "none" }}>
+            <Tabs
+  value={tab}
+  onChange={(e, newValue) => setTab(newValue)}
+  textColor="secondary"
+  indicatorColor="secondary"
+  sx={{
+    "& .MuiTab-root": {
+      color: "#FF5A5F",          // cor padrão
+      backgroundColor: "transparent",
+      textTransform: "none",
+      "&:hover": {
+        backgroundColor: "rgba(255,90,95,0.1)", // hover leve
+      },
+    },
+    "& .Mui-selected": {
+      color: "#ffffff",           // cor do texto da aba selecionada
+      fontWeight: "bold",
+      backgroundColor: "#FF5A5F", // fundo da aba ativa
+    },
+    "& .MuiTabs-indicator": {
+      backgroundColor: "#FF5A5F",
+    },
+  }}
+>
+  <Tab label="Todos" disableRipple />
+  <Tab label="Novo" disableRipple />
+  <Tab label="Em preparo" disableRipple />
+  <Tab label="Finalizado" disableRipple />
+</Tabs>
 
-        {carrinho.map((item, idx) => {
-          const pizzaInfo = pizzas.find(
-            (p) => String(p.id) === String(item.id)
-          );
-          return (
-            <ItemPedido
-              key={idx}
-              item={item}
-              pizzaInfo={pizzaInfo}
-              index={idx}
-              onQuantidadeChange={handleQuantidadeChange}
-              onRemoverItem={handleRemoverItem}
-            />
-          );
-        })}
 
-        <Divider sx={{ my: 2 }} />
+</Paper>
 
-        {/* Nome do cliente */}
-        <TextField
-          label="Nome do Cliente"
-          value={nomeCliente}
-          onChange={(e) => setNomeCliente(e.target.value)}
-          fullWidth
-          sx={{ mb: 2 }}
-        />
 
-        {/* Tipo de entrega e mesa/endereço na mesma linha */}
-        <Grid container spacing={1} sx={{ mb: 2 }} width="100%">
-          <Grid item  width="30%">
-            <TextField
-              select
-              label="Tipo de Entrega"
-              value={tipoEntrega}
-              onChange={(e) => setTipoEntrega(e.target.value)}
-              fullWidth
-            >
-              <MenuItem value="mesa">Mesa</MenuItem>
-              <MenuItem value="entrega">Entrega</MenuItem>
-            </TextField>
-          </Grid>
-          <Grid item sx={{width:{xs:"67%",md:"68%"}}}>
-            {tipoEntrega === "mesa" ? (
-              <TextField
-                label="Número da Mesa"
-                value={numeroMesa}
-                onChange={(e) => setNumeroMesa(e.target.value)}
-                fullWidth
+          {filteredOrders().length === 0 ? (
+            <Typography sx={{ textAlign: "center", p: 3 }}>
+              Nenhum pedido encontrado.
+            </Typography>
+          ) : (
+            filteredOrders().map((pedido) => (
+              <Paper key={pedido.id} sx={{ p: 2, mb: 2 }}>
+                <Typography variant="h6">Pedido #{pedido.id}</Typography>
+                <Typography
+                  sx={{
+                    color:
+                      pedido.status === "Novo" ? "#FFA500" :
+                      pedido.status === "Em preparo" ? "#2196F3" :
+                      "#4CAF50",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Status: {pedido.status}
+                </Typography>
+              </Paper>
+            ))
+          )}
+        </>
+      ) : (
+        <Paper sx={{ p: 2, textAlign: "left" }}>
+          <Typography variant="h6" gutterBottom>
+            Meu Pedido
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
+
+          {carrinho.map((item, idx) => {
+            const pizzaInfo = pizzas.find(
+              (p) => String(p.id) === String(item.id)
+            );
+            return (
+              <ItemPedido
+                key={idx}
+                item={item}
+                pizzaInfo={pizzaInfo}
+                index={idx}
+                onQuantidadeChange={handleQuantidadeChange}
+                onRemoverItem={handleRemoverItem}
               />
-            ) : (
-              <TextField
-                label="Endereço"
-                value={endereco}
-                onChange={(e) => setEndereco(e.target.value)}
-                fullWidth
-              />
-            )}
-          </Grid>
-        </Grid>
+            );
+          })}
 
-        {/* Seleção de garçom */}
+          <Divider sx={{ my: 2 }} />
+
+          <TextField
+            label="Nome do Cliente"
+            value={nomeCliente}
+            onChange={(e) => setNomeCliente(e.target.value)}
+            fullWidth
+            sx={{ mb: 2 }}
+          />
+
+          <Grid container spacing={1} sx={{ mb: 2 }} width="100%">
+            <Grid item width="30%">
+              <TextField
+                select
+                label="Tipo de Entrega"
+                value={tipoEntrega}
+                onChange={(e) => setTipoEntrega(e.target.value)}
+                fullWidth
+                sx={{ backgroundColor: "background.paper" }}
+              >
+                <MenuItem value="mesa">Mesa</MenuItem>
+                <MenuItem value="entrega">Entrega</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid item sx={{ width: { xs: "67%", md: "68%" } }}>
+              {tipoEntrega === "mesa" ? (
+                <TextField
+                  label="Número da Mesa"
+                  value={numeroMesa}
+                  onChange={(e) => setNumeroMesa(e.target.value)}
+                  fullWidth
+                  sx={{ backgroundColor: "background.paper" }}
+                />
+              ) : (
+                <TextField
+                  label="Endereço"
+                  value={endereco}
+                  onChange={(e) => setEndereco(e.target.value)}
+                  fullWidth
+                  sx={{ backgroundColor: "background.paper" }}
+                />
+              )}
+            </Grid>
+          </Grid>
+
           {tipoEntrega === "mesa" && (
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mb: 1 }}>
               <InputLabel>Selecionar Garçom</InputLabel>
               <Select
                 value={garcomSelecionado}
                 onChange={(g) => setGarcomSelecionado(g.target.value)}
-                label="Selecionar Entregador"
+                label="Selecionar Garçom"
+                sx={{ backgroundColor: "background.paper" }}
               >
                 {garconsDisponiveis.map(g => (
                   <MenuItem key={g.id} value={g.id}>
@@ -231,77 +297,74 @@ const Pedido = () => {
             </FormControl>
           )}
 
-        {/* Taxas */}
-        {tipoEntrega === "mesa" && (
+          {tipoEntrega === "mesa" && (
             <FormControlLabel
               control={
                 <Checkbox
                   checked={retirarTaxaServico}
                   onChange={(e) => setRetirarTaxaServico(e.target.checked)}
                 />
-
               }
-              
               label="Retirar 10% de taxa de serviço"
             />
-        )}
+          )}
 
-        <Divider sx={{ mb: 2 }} />
+          <Divider sx={{ mb: 2 }} />
 
-        {/* Subtotal */}
-        <Grid display="flex" flexDirection="row" justifyContent="space-between">
-          <Typography variant="body1" align="left">
-            Subtotal:
-          </Typography>
-          <Typography variant="body1" align="right">
-            R$ {subTotal.toFixed(2)}
-          </Typography>
-        </Grid>
-
-        {!retirarTaxaServico && (
           <Grid display="flex" flexDirection="row" justifyContent="space-between">
             <Typography variant="body1" align="left">
-              Taxa de Serviço:
+              Subtotal:
             </Typography>
             <Typography variant="body1" align="right">
-              R$ {taxaServico.toFixed(2)}
+              R$ {subTotal.toFixed(2)}
             </Typography>
           </Grid>
-        )}
 
-        {tipoEntrega === "entrega" && (
-          <Grid display="flex" flexDirection="row" justifyContent="space-between">
-            <Typography variant="body1" align="left">
-              Taxa de Entrega:
+          {!retirarTaxaServico && (
+            <Grid display="flex" flexDirection="row" justifyContent="space-between">
+              <Typography variant="body1" align="left">
+                Taxa de Serviço:
+              </Typography>
+              <Typography variant="body1" align="right">
+                R$ {taxaServico.toFixed(2)}
+              </Typography>
+            </Grid>
+          )}
+
+          {tipoEntrega === "entrega" && (
+            <Grid display="flex" flexDirection="row" justifyContent="space-between">
+              <Typography variant="body1" align="left">
+                Taxa de Entrega:
+              </Typography>
+              <Typography variant="body1" align="right">
+                R$ {taxaEntrega.toFixed(2)}
+              </Typography>
+            </Grid>
+          )}
+
+          <Grid display="flex" flexDirection="row" justifyContent="space-between" sx={{ mt: 1 }}>
+            <Typography variant="h6" align="left">
+              Total:
             </Typography>
-            <Typography variant="body1" align="right">
-              R$ {taxaEntrega.toFixed(2)}
+            <Typography variant="h6" align="right">
+              R$ {totalFinal.toFixed(2)}
             </Typography>
           </Grid>
-        )}
 
-        {/* Total */}
-        <Grid display="flex" flexDirection="row" justifyContent="space-between" sx={{ mt: 1 }}>
-          <Typography variant="h6" align="left">
-            Total:
-          </Typography>
-          <Typography variant="h6" align="right">
-            R$ {totalFinal.toFixed(2)}
-          </Typography>
-        </Grid>
-
-        <Button
-          variant="contained"
-          color="success"
-          fullWidth
-          sx={{ mt: 2 }}
-          onClick={handleFinalizarPedido}
-        >
-          Finalizar Pedido
-        </Button>
-      </Paper>)}
+          <Button
+            variant="contained"
+            color="success"
+            fullWidth
+            sx={{ mt: 2 }}
+            onClick={handleFinalizarPedido}
+          >
+            Finalizar Pedido
+          </Button>
+        </Paper>
+      )}
     </Box>
   );
 };
 
 export default Pedido;
+
