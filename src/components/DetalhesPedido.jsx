@@ -41,12 +41,11 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
   const entregador = entregadores.find((e) => e.id === pedido.entregador);
   const totalNumber = typeof pedido.total === "number" ? pedido.total : Number(pedido.total);
 
-  // 🔹 Cliente não precisa ver botão de ação
   const getButtonLabel = () => {
     if (modo === "cliente") return "";
     if (pedido.status === "Novo" || pedido.status === "Em preparo") return "Pedido Pronto";
     if (pedido.status === "Servir") return "Servido";
-    if (pedido.status === "Entregar") return "Entregue";
+    if (pedido.status === "Entregar") return "Enviado para entrega";
     return "";
   };
 
@@ -67,8 +66,10 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
     let novoStatus = pedido.status;
     if (pedido.status === "Novo" || pedido.status === "Em preparo") {
       novoStatus = pedido.tipoEntrega === "mesa" ? "Servir" : "Entregar";
-    } else if (pedido.status === "Servir" || pedido.status === "Entregar") {
-      novoStatus = "Finalizado";
+    } else if (pedido.status === "Servir") {
+      novoStatus = "Pagamento pendente";
+    } else if (pedido.status === "Entregar") {
+      novoStatus = "Saído para entrega";
     }
 
     if (novoStatus !== pedido.status) {
@@ -78,6 +79,21 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
           : {};
 
       await updatePedidoStatus(pedido.id, novoStatus, extraData);
+      onClose && onClose();
+    }
+  };
+
+  const handleClienteAcao = async () => {
+    let novoStatus = pedido.status;
+
+    if (pedido.status === "Saído para entrega") {
+      novoStatus = "Finalizado";
+    } else if (pedido.status === "Pagamento pendente") {
+      novoStatus = "Finalizado";
+    }
+
+    if (novoStatus !== pedido.status) {
+      await updatePedidoStatus(pedido.id, novoStatus);
       onClose && onClose();
     }
   };
@@ -172,7 +188,7 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
           </FormControl>
         )}
 
-        {/* Botão só aparece para funcionários */}
+        {/* Botão para funcionários */}
         {modo === "funcionario" && !(getButtonLabel() === "") && (
           <Button
             fullWidth
@@ -182,6 +198,29 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
             disabled={pedido.status === "Entregar" && !entregadorSelecionado}
           >
             {getButtonLabel()}
+          </Button>
+        )}
+
+        {/* Botões para cliente */}
+        {modo === "cliente" && pedido.status === "Saído para entrega" && (
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 2, backgroundColor: theme.palette.success.main, color: "white", fontWeight: "bold" }}
+            onClick={handleClienteAcao}
+          >
+            Confirmar Entrega
+          </Button>
+        )}
+
+        {modo === "cliente" && pedido.status === "Pagamento pendente" && (
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{ mt: 2, backgroundColor: theme.palette.info.main, color: "white", fontWeight: "bold" }}
+            onClick={handleClienteAcao}
+          >
+            Realizar Pagamento
           </Button>
         )}
       </CardContent>

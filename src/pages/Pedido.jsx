@@ -95,7 +95,7 @@ const Pedido = () => {
       return;
     }
 
-    if (!garcomSelecionado) {
+    if (!garcomSelecionado && tipoEntrega === "mesa") {
       toast("Por favor, selcione um garçom", { autoClose: 3000 });
       return;
     }

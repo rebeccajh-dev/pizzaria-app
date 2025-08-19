@@ -34,8 +34,8 @@
     },
     {
       "id": "2",
-      "cliente": null,
-      "usuarioId": 4,
+      "cliente": "Robson",
+      "usuarioId": 2,
       "itens": [
         {
           "pizzaId": "14",
@@ -68,7 +68,7 @@
       "tipoEntrega": "entrega",
       "numeroMesa": null,
       "endereco": "Rua Amarando, 34, Barra",
-      "entregador": "E2501",
+      "entregador": "E2502",
       "garcom": null,
       "total": 185.85,
       "status": "Finalizado"
@@ -521,6 +521,29 @@
       "entregador": null,
       "garcom": "G2501",
       "total": "145.20",
+      "status": "Finalizado"
+    },
+    {
+      "id": "16",
+      "cliente": "Robson",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "2",
+          "nome": "Calabresa",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "43.80",
+          "quantidade": 1,
+          "total": 43.8
+        }
+      ],
+      "tipoEntrega": "entrega",
+      "numeroMesa": null,
+      "endereco": "eua",
+      "entregador": null,
+      "garcom": null,
+      "total": "52.56",
       "status": "Finalizado"
     }
   ]
