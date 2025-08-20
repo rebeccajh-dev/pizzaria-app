@@ -82,7 +82,7 @@ const Login = () => {
         flexDirection: "column", // para organizar verticalmente
         minHeight: "90vh", // altura total
         width: "100%", // largura total
-        backgroundColor: theme.palette.tertiary.main
+        backgroundColor: theme.palette.quartiary.main
       }}
     >
       <Paper elevation={4} sx={{ p: 4, width: 350 }}>
@@ -90,13 +90,13 @@ const Login = () => {
             component="img"
             src={
               localStorage.getItem("themeConfig")
-                ? JSON.parse(localStorage.getItem("themeConfig"))?.logo || "\imagens\logo&nome.png"
-                : "\imagens\logo&nome.png"
+                ? JSON.parse(localStorage.getItem("themeConfig"))?.logo || "/imagens/logo&nome.png"
+                : "/imagens/logo&nome.png"
             }
             alt="Logo"
-            sx={{ height: 180 }}
+            sx={{ height: 150 }}
           />
-        <Typography variant="h5" align="center" gutterBottom sx={{color:"#d32f2f"}}>
+        <Typography variant="h5" align="center" gutterBottom sx={{color:theme.palette.tertiary.main}}>
           Login
         </Typography>
 
@@ -148,7 +148,7 @@ const Login = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ mt: 2, backgroundColor: theme.palette.secondary.main, color: "white"}}
+            sx={{ mt: 2, backgroundColor: theme.palette.quintary.main, color: "white"}}
           >
             Entrar
           </Button>

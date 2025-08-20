@@ -1,4 +1,4 @@
-import { Button, Grid, useTheme } from "@mui/material";
+import { Button, Grid, useTheme, TextField} from "@mui/material";
 import { MuiColorInput } from "mui-color-input";
 import { useState, useEffect } from "react";
 import SaveIcon from "@mui/icons-material/Save";
@@ -18,6 +18,7 @@ export default function ColorInputExample() {
 
   const [colors, setColors] = useState(defaultColors);
   const [logo, setLogo] = useState(null);
+  const [title, setTitle] = useState(null);
 
   const theme = useTheme();
 
@@ -35,6 +36,7 @@ export default function ColorInputExample() {
         color6: parsed.sextatory?.main || defaultColors.color6,
       });
       setLogo(parsed.logo || null);
+      setTitle(parsed.title || "Mammamia Pizzaria")
     }
   }, []);
 
@@ -50,6 +52,7 @@ export default function ColorInputExample() {
         quintary: { main: colors.color5 },
         sextatory: { main: colors.color6 },
         logo,
+        title
       })
     );
     toast.success("Configurações salvas!");
@@ -114,6 +117,13 @@ export default function ColorInputExample() {
         value={colors.color6}
         onChange={(val) => setColors((c) => ({ ...c, color6: val }))}
         label="Cor Header"
+      />
+
+      <TextField
+        label="Título"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        fullWidth
       />
 
       {/* upload logo */}

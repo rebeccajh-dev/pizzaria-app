@@ -15,7 +15,6 @@ const Cozinha = () => {
   const { pizzas } = usePizzas();
   const { pedidos, fetchPedidos } = usePedidos();
 
-
  const filteredOrders = () => {
   const pedidosAtivos = pedidos.filter(
     o => o.status === "Novo" || o.status === "Em preparo"
