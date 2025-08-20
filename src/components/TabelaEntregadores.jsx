@@ -32,7 +32,18 @@ const TabelaEntregadores = ({ onSelecionarHistorico }) => {
     return (
         <Box p={2} >
             <Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" mb={2} >
-            <Button variant="contained" startIcon={<Add />} onClick={handleOpenCreate} color="error">
+            <Button
+                variant="contained"
+                startIcon={<Add />}
+                onClick={handleOpenCreate}
+                sx={{
+                    backgroundColor: (theme) => theme.palette.secondary.main,
+                    color: "#fff",
+                    "&:hover": {
+                    backgroundColor: (theme) => theme.palette.secondary.dark,
+                    },
+                }}
+                >
                 Novo Entregador
             </Button>
             </Stack>

@@ -1,4 +1,4 @@
-import { Box, Stack, Button, TableCell, Paper , TableContainer, Table, TableHead, TableRow, TableBody, CardActions} from "@mui/material";
+import { Box, Stack, Button, TableCell, Paper , TableContainer, Table, TableHead, TableRow, TableBody, CardActions, useTheme} from "@mui/material";
 import { Add } from "@mui/icons-material";
 import GarcomDialog from "../components/GarcomDialog";
 import { useState } from "react";
@@ -9,6 +9,7 @@ const TabelaGarcons = ({ onSelecionarHistorico }) => {
     const { garcons, saveGarcom, deleteGarcom } = useGarcons();
     const [open, setOpen] = useState(false);
     const [editing, setEditing] = useState(null);
+    const theme = useTheme();
 
     const handleOpenCreate = () => {
         setEditing(null);
@@ -32,9 +33,21 @@ const TabelaGarcons = ({ onSelecionarHistorico }) => {
     return (
         <Box p={2} >
             <Stack direction={{ xs: "column", sm: "row" }} justifyContent="space-between" mb={2} >
-            <Button variant="contained" startIcon={<Add />} onClick={handleOpenCreate} color="error">
+            <Button
+                variant="contained"
+                startIcon={<Add />}
+                onClick={handleOpenCreate}
+                sx={{
+                    backgroundColor: (theme) => theme.palette.secondary.main,
+                    color: "#fff",
+                    "&:hover": {
+                    backgroundColor: (theme) => theme.palette.secondary.dark,
+                    },
+                }}
+                >
                 Novo Garçom
             </Button>
+
             </Stack>
 
             <TableContainer component={Paper}>
