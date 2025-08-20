@@ -22,7 +22,6 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
   const handleFinalizarCompra = (event) => {
     event.preventDefault();
 
-    // Validação simples para cartão
     if (
       (formaPagamento === "credito" || formaPagamento === "debito") &&
       (!nomeCartao || !numeroCartao || !cvv)
@@ -62,18 +61,60 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
 
       <form onSubmit={handleFinalizarCompra}>
         <FormControl component="fieldset" sx={{ mb: 2 }}>
-          <FormLabel component="legend">Forma de Pagamento</FormLabel>
+          <FormLabel component="legend" color="red" >Forma de Pagamento</FormLabel>
           <RadioGroup
             value={formaPagamento}
             onChange={(e) => setFormaPagamento(e.target.value)}
             row
           >
-            <FormControlLabel value="pix" control={<Radio />} label="PIX" />
-            <FormControlLabel value="credito" control={<Radio />} label="Crédito" />
-            <FormControlLabel value="debito" control={<Radio />} label="Débito" />
+            <FormControlLabel
+              value="pix"
+              control={
+                <Radio
+                  sx={{
+                    color: "#999",
+                    "&.Mui-checked": {
+                      color: "#ff0000",
+                    },
+                  }}
+                />
+              }
+              label="PIX"
+            />
+
+            <FormControlLabel
+              value="credito"
+              control={
+                <Radio
+                  sx={{
+                    color: "#999",
+                    "&.Mui-checked": {
+                      color: "#ff0000",
+                    },
+                  }}
+                />
+              }
+              label="Crédito"
+            />
+
+            <FormControlLabel
+              value="debito"
+              control={
+                <Radio
+                  sx={{
+                    color: "#999",
+                    "&.Mui-checked": {
+                      color: "#ff0000",
+                    },
+                  }}
+                />
+              }
+              label="Débito"
+            />
           </RadioGroup>
         </FormControl>
 
+        {/* PIX */}
         {formaPagamento === "pix" && (
           <Box sx={{ textAlign: "center", mb: 2 }}>
             <Typography variant="subtitle1">Pagamento com PIX</Typography>
@@ -87,6 +128,7 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
           </Box>
         )}
 
+        {/* Cartão */}
         {(formaPagamento === "credito" || formaPagamento === "debito") && (
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 2 }}>
             <TextField
@@ -112,7 +154,7 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
           </Box>
         )}
 
-        <Button type="submit" variant="contained" color="primary" fullWidth>
+        <Button type="submit" variant="contained" color="error" fullWidth>
           Pagar Agora
         </Button>
       </form>
@@ -121,4 +163,3 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
 };
 
 export default Pagamento;
-

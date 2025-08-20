@@ -12,9 +12,7 @@ import {
   FormControl,
   InputLabel,
   Select,
-  Tabs,
-  Tab,
-  FormControlLabel
+  FormControlLabel,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ItemPedido from "../components/ItemPedido";
@@ -23,6 +21,7 @@ import { toast } from "react-toastify";
 import { usePizzas } from "../context/PizzasContext";
 import { usePedidos } from "../context/PedidosContext";
 import { useGarcons } from "../context/GarconsContext";
+import Pagamento from "../components/Pagamento"; // ✅ Importando Pagamento
 
 const Pedido = () => {
   const navigate = useNavigate();
@@ -33,13 +32,15 @@ const Pedido = () => {
   const [nomeCliente, setNomeCliente] = useState("");
   const [retirarTaxaServico, setRetirarTaxaServico] = useState(false);
   const [garcomSelecionado, setGarcomSelecionado] = useState("");
+  const [mostrarPagamento, setMostrarPagamento] = useState(false); // ✅ Estado para controlar Pagamento
 
   const { garcons } = useGarcons();
-  const garconsDisponiveis = garcons.filter(g => g.status === "disponível");
+  const garconsDisponiveis = garcons.filter((g) => g.status === "disponível");
   const { pizzas } = usePizzas();
   const { pedidos, createPedido } = usePedidos();
-  
-  const usuarioLogado = parseInt(JSON.parse(localStorage.getItem("usuarioLogado")).id) || {};
+
+  const usuarioLogado =
+    parseInt(JSON.parse(localStorage.getItem("usuarioLogado")).id) || {};
 
   const pedidoAtivo = pedidos.find(
     (p) => p.usuarioId === usuarioLogado && p.status !== "Finalizado"
@@ -68,36 +69,39 @@ const Pedido = () => {
     0
   );
 
-  const taxaServico = tipoEntrega === "mesa" && !retirarTaxaServico ? subTotal * 0.1 : 0;
+  const taxaServico =
+    tipoEntrega === "mesa" && !retirarTaxaServico ? subTotal * 0.1 : 0;
   const taxaEntrega = tipoEntrega === "entrega" ? subTotal * 0.2 : 0;
   const totalFinal = subTotal + taxaServico + taxaEntrega;
 
-  const handleFinalizarPedido = async () => {
+  // ✅ Valida antes de mostrar Pagamento
+  const handleValidarPedido = () => {
     if (!carrinho.length) {
       toast.error("Seu carrinho está vazio!", { autoClose: 3000 });
       return;
     }
-
     if (!nomeCliente) {
       toast("Por favor, informe o nome do cliente", { autoClose: 3000 });
       return;
     }
-
     if (tipoEntrega === "mesa" && !numeroMesa) {
       toast("Por favor, informe o número da mesa", { autoClose: 3000 });
       return;
     }
-
     if (tipoEntrega === "entrega" && !endereco) {
       toast("Por favor, informe o endereço para entrega", { autoClose: 3000 });
       return;
     }
-
     if (!garcomSelecionado && tipoEntrega === "mesa") {
-      toast("Por favor, selcione um garçom", { autoClose: 3000 });
+      toast("Por favor, selecione um garçom", { autoClose: 3000 });
       return;
     }
 
+    setMostrarPagamento(true);
+  };
+
+
+  const handleSalvarPedido = () => {
     const novoPedido = {
       cliente: nomeCliente,
       usuarioId: 2,
@@ -123,7 +127,6 @@ const Pedido = () => {
       const nextId = String(
         pedidos.length ? Math.max(...pedidos.map((p) => Number(p.id))) + 1 : 1
       );
-
       createPedido(nextId, novoPedido);
 
       localStorage.removeItem("carrinho");
@@ -135,8 +138,9 @@ const Pedido = () => {
     }
   };
 
-  // Travar Carrinho
-  pedidoAtivo ? localStorage.setItem("carrinhoBloqueado", "true") : localStorage.setItem("carrinhoBloqueado", "false");
+  pedidoAtivo
+    ? localStorage.setItem("carrinhoBloqueado", "true")
+    : localStorage.setItem("carrinhoBloqueado", "false");
 
   return (
     <Box sx={{ p: 2, maxWidth: 800, mx: "auto" }}>
@@ -146,6 +150,15 @@ const Pedido = () => {
         <Typography sx={{ textAlign: "center", p: 3 }}>
           Nenhum pedido encontrado.
         </Typography>
+      ) : mostrarPagamento ? (
+        <Pagamento
+          carrinho={carrinho}
+          total={totalFinal}
+          limparCarrinho={() => {
+            setCarrinho([]);
+            handleSalvarPedido();
+          }}
+        />
       ) : (
         <Paper sx={{ p: 2, textAlign: "left" }}>
           <Typography variant="h6" gutterBottom>
@@ -223,7 +236,7 @@ const Pedido = () => {
                 label="Selecionar Garçom"
                 sx={{ backgroundColor: "background.paper" }}
               >
-                {garconsDisponiveis.map(g => (
+                {garconsDisponiveis.map((g) => (
                   <MenuItem key={g.id} value={g.id}>
                     {g.nome}
                   </MenuItem>
@@ -291,9 +304,9 @@ const Pedido = () => {
             color="success"
             fullWidth
             sx={{ mt: 2 }}
-            onClick={handleFinalizarPedido}
+            onClick={handleValidarPedido}
           >
-            Finalizar Pedido
+            Continuar para Pagamento
           </Button>
         </Paper>
       )}
@@ -302,3 +315,4 @@ const Pedido = () => {
 };
 
 export default Pedido;
+
