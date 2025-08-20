@@ -1,22 +1,46 @@
 import { createTheme } from "@mui/material/styles";
-
+// cores base (fallback)
 export const baseColors = {
-  primary: { main: "#ffffffff" },
+  primary: { main: "#ffffff" },
   secondary: { main: "#a81010" },
-  tertiary: { main: "#558858" },
-  quartiary: { main: "#60a76f" },
-  quintary: { main: "#0f8c23" },
-  sextatory: { main: "#FF5A5F" },
-  seventh: { main: "#17411e" },
+  tertiary: { main: "#FF5A5F" },
+  quartiary: { main: "#558858" },
+  quintary: { main: "#60a76f" },
+  sextatory: { main: "#17411e" },
   success: { main: "#28a745", contrastText: "#fff" },
-  error: { main: "#dc3545", contrastText: "#fff" },
+  error: { main: "#dc3545", contrastText: "#fff" }
 };
 
-export const getTheme = (darkMode) =>
-  createTheme({
+// função para pegar do localStorage
+const loadCustomColors = () => {
+  try {
+    const saved = localStorage.getItem("themeConfig");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return {
+        primary: parsed.primary || baseColors.primary,
+        secondary: parsed.secondary || baseColors.secondary,
+        tertiary: parsed.tertiary || baseColors.tertiary,
+        quartiary: parsed.quartiary || baseColors.quartiary,
+        quintary: parsed.quintary || baseColors.quintary,
+        sextatory: parsed.sextatory || baseColors.sextatory,
+        success: parsed.success || baseColors.success,
+        error: parsed.error || baseColors.error,
+      };
+    }
+  } catch (e) {
+    console.error("Erro carregando themeConfig:", e);
+  }
+  return baseColors;
+};
+
+export const getTheme = (darkMode) => {
+  const colors = loadCustomColors();
+
+  return createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
-      ...baseColors,
+      ...colors,
       ...(darkMode
         ? {
             background: {
@@ -43,15 +67,15 @@ export const getTheme = (darkMode) =>
     components: {
       MuiOutlinedInput: {
         styleOverrides: {
-          root:({ theme }) => ({
+          root: ({ theme }) => ({
             "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "gray", // cor padrão
+              borderColor: "gray",
             },
             "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: theme.palette.secondary.main, // hover
+              borderColor: theme.palette.secondary.main,
             },
             "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: theme.palette.secondary.main, // foco
+              borderColor: theme.palette.secondary.main,
               borderWidth: "2px",
             },
           }),
@@ -60,15 +84,15 @@ export const getTheme = (darkMode) =>
       MuiCheckbox: {
         styleOverrides: {
           root: ({ theme }) => ({
-            color: "gray", // cor padrão da borda/ícone
+            color: "gray",
             "&:hover": {
-              color: theme.palette.secondary.main, // hover
+              color: theme.palette.secondary.main,
             },
             "&.Mui-checked": {
-              color: theme.palette.secondary.main, // quando marcado
+              color: theme.palette.secondary.main,
             },
             "&.Mui-focusVisible": {
-              outline: `2px solid ${theme.palette.secondary.main}`, // foco via teclado
+              outline: `2px solid ${theme.palette.secondary.main}`,
               outlineOffset: 2,
             },
           }),
@@ -78,7 +102,8 @@ export const getTheme = (darkMode) =>
         styleOverrides: {
           root: ({ theme }) => ({
             "&.Mui-focused": {
-              color: theme.palette.mode === "dark" ? "#cececeff" : "#585858ff",
+              color:
+                theme.palette.mode === "dark" ? "#cececeff" : "#585858ff",
             },
           }),
         },
@@ -103,3 +128,4 @@ export const getTheme = (darkMode) =>
       },
     },
   });
+};

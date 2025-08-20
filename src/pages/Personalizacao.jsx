@@ -1,74 +1,167 @@
-import { Grid } from "@mui/material";
+import { Button, Grid, useTheme } from "@mui/material";
 import { MuiColorInput } from "mui-color-input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import SaveIcon from "@mui/icons-material/Save";
+import SettingsBackupRestoreIcon from "@mui/icons-material/SettingsBackupRestore";
+import { toast } from "react-toastify";
 
 export default function ColorInputExample() {
-  const [color1, setColor1] = useState("#ffffff");
-  const [color2, setColor2] = useState("#a81010");
-  const [color3, setColor3] = useState("#FF5A5F");
-  const [color4, setColor4] = useState("#558858");
-  const [color5, setColor5] = useState("#60a76f");
-  const [color6, setColor6] = useState("#17411e");
+  // cores padrão
+  const defaultColors = {
+    color1: "#ffffff",
+    color2: "#a81010",
+    color3: "#FF5A5F",
+    color4: "#558858",
+    color5: "#60a76f",
+    color6: "#17411e",
+  };
 
-  // salvar preferências
-  localStorage.setItem("themeConfig", JSON.stringify({
-    primary: { main: "#ffffff" },
-    secondary: { main: "#a81010" },
-    tertiary: { main: "#FF5A5F" },  
-    quartiary: { main: "#558858" },
-    quintary: { main: "#60a76f" },
-    sextatory: { main: "#17411e" },
-    success: { main: "#28a745", contrastText: "#fff" },
-    error: { main: "#dc3545", contrastText: "#fff" },
-  }));
+  const [colors, setColors] = useState(defaultColors);
+  const [logo, setLogo] = useState(null);
 
+  const theme = useTheme();
+
+  // carregar config do localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("themeConfig");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      setColors({
+        color1: parsed.primary?.main || defaultColors.color1,
+        color2: parsed.secondary?.main || defaultColors.color2,
+        color3: parsed.tertiary?.main || defaultColors.color3,
+        color4: parsed.quartiary?.main || defaultColors.color4,
+        color5: parsed.quintary?.main || defaultColors.color5,
+        color6: parsed.sextatory?.main || defaultColors.color6,
+      });
+      setLogo(parsed.logo || null);
+    }
+  }, []);
+
+  // handler salvar preferências
+  const handleSave = () => {
+    localStorage.setItem(
+      "themeConfig",
+      JSON.stringify({
+        primary: { main: colors.color1 },
+        secondary: { main: colors.color2 },
+        tertiary: { main: colors.color3 },
+        quartiary: { main: colors.color4 },
+        quintary: { main: colors.color5 },
+        sextatory: { main: colors.color6 },
+        logo,
+      })
+    );
+    toast.success("Configurações salvas!");
+  };
+
+  // handler resetar
+  const handleReset = () => {
+    setColors(defaultColors);
+    setLogo(null);
+    localStorage.removeItem("themeConfig");
+  };
+
+  // upload logo
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => setLogo(reader.result); // base64 da imagem
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
-    <Grid p={{xs:8,dm:3}} display="grid" sx={{gap:"10px"}}>
-
+    <Grid p={{ xs: 8, dm: 3 }} container spacing={2} sx={{ gap: "10px" }}>
       <MuiColorInput
         format="hex"
-        value={color1}
-        onChange={setColor1}
+        value={colors.color1}
+        onChange={(val) => setColors((c) => ({ ...c, color1: val }))}
         label="Cor dos ícones"
       />
 
       <MuiColorInput
         format="hex"
-        value={color2}
-        onChange={setColor2}
+        value={colors.color2}
+        onChange={(val) => setColors((c) => ({ ...c, color2: val }))}
         label="Cor Principal"
       />
 
       <MuiColorInput
         format="hex"
-        value={color3}
-        onChange={setColor3}
+        value={colors.color3}
+        onChange={(val) => setColors((c) => ({ ...c, color3: val }))}
         label="Cor Sub-Principal"
       />
 
       <MuiColorInput
         format="hex"
-        value={color4}
-        onChange={setColor4}
+        value={colors.color4}
+        onChange={(val) => setColors((c) => ({ ...c, color4: val }))}
         label="Cor Complementar"
       />
 
       <MuiColorInput
         format="hex"
-        value={color5}
-        onChange={setColor5}
+        value={colors.color5}
+        onChange={(val) => setColors((c) => ({ ...c, color5: val }))}
         label="Cor Sub-Complementar"
       />
-
+      
       <MuiColorInput
         format="hex"
-        value={color6}
-        onChange={setColor6}
+        value={colors.color6}
+        onChange={(val) => setColors((c) => ({ ...c, color6: val }))}
         label="Cor Header"
       />
 
-      
+      {/* upload logo */}
+      <Button
+        variant="outlined"
+        component="label"
+        sx={{
+          width: "255px",
+          color: "#585858ff",
+          border: "1px solid #585858ff",
+        }}
+      >
+        Upload Logo
+        <input hidden accept="image/*" type="file" onChange={handleLogoChange} />
+      </Button>
+
+      {/* preview logo se existir */}
+      {logo && (
+        <img
+          src={logo}
+          alt="Logo preview"
+          style={{ width: "100px", marginTop: "10px" }}
+        />
+      )}
+
+      {/* salvar */}
+      <Button
+        onClick={handleSave}
+        variant="contained"
+        sx={{
+          bgcolor: theme.palette.tertiary.main,
+          color: theme.palette.primary.main,
+        }}
+      >
+        <SaveIcon />
+      </Button>
+
+      {/* reset */}
+      <Button
+        onClick={handleReset}
+        variant="contained"
+        sx={{
+          bgcolor: theme.palette.quartiary.main,
+          color: theme.palette.primary.main,
+        }}
+      >
+        <SettingsBackupRestoreIcon />
+      </Button>
     </Grid>
   );
 }

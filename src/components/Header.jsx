@@ -50,14 +50,18 @@ const Header = () => {
 
   return (
     //{//mudar isso aqui}
-    <AppBar position="static" width="100%" sx={{ backgroundColor: theme.palette.seventh.main }}> 
+    <AppBar position="static" width="100%" sx={{ backgroundColor: theme.palette.sextatory.main }}> 
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         
         {/* Logo e título */}
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Box
             component="img"
-            src="\imagens\logopizza.png"
+            src={
+              localStorage.getItem("themeConfig")
+                ? JSON.parse(localStorage.getItem("themeConfig"))?.logo || "/imagens/logopizza.png"
+                : "/imagens/logopizza.png"
+            }
             alt="Logo"
             sx={{ height: 40, mr: 2 }}
           />

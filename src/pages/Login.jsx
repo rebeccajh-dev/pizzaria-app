@@ -88,7 +88,11 @@ const Login = () => {
       <Paper elevation={4} sx={{ p: 4, width: 350 }}>
          <Box
             component="img"
-            src="\imagens\logo&nome.png"
+            src={
+              localStorage.getItem("themeConfig")
+                ? JSON.parse(localStorage.getItem("themeConfig"))?.logo || "\imagens\logo&nome.png"
+                : "\imagens\logo&nome.png"
+            }
             alt="Logo"
             sx={{ height: 180 }}
           />

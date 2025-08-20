@@ -3,11 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
- "scripts": {
-  "dev": "concurrently \"json-server data/db-pedidos.json --port 3001\" \"json-server data/db-pizzas.json --port 3002\" \"json-server data/db-entregadores.json --port 3003\" \"json-server data/db-garcons.json --port 3004\" \"vite\""
-}
-,
-
+  "scripts": {
+    "dev": "concurrently \"json-server data/db-pedidos.json --port 3001\" \"json-server data/db-pizzas.json --port 3002\" \"json-server data/db-entregadores.json --port 3003\" \"json-server data/db-garcons.json --port 3004\" \"vite\""
+  },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
