@@ -58,12 +58,52 @@ export function GarconsProvider({ children }) {
     }
   };
 
+  const sincronizarHistoricoAtendimentos = async () => {
+    const historico = JSON.parse(localStorage.getItem("historicoAtendimentos")) || [];
+
+    for (const atendimento of historico) {
+      const garcomId = atendimento.idGarcom;
+      
+      if (!garcomId) {
+        console.error("ID do garçom não encontrado no atendimento:", atendimento);
+        continue;
+      }
+
+      try {
+        const res = await fetch(`${baseUrl}/${garcomId}`);
+        const garcom = await res.json();
+
+        if (!res.ok) {
+          throw new Error('Garçom não encontrado');
+        }
+
+        // Adiciona novo histórico
+        const historicoAtualizado = [...(garcom.historicoAtendimentos || []), atendimento];
+
+        // Atualiza garçom no db.json
+        await fetch(`${baseUrl}/${garcomId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ historicoAtendimentos: historicoAtualizado }),
+        });
+        
+      } catch (error) {
+        console.error(`Erro ao sincronizar atendimento para o garçom ${garcomId}:`, error);
+        toast.error("Erro ao sincronizar histórico de atendimentos.");
+      }
+    }
+
+    localStorage.removeItem("historicoAtendimentos");
+    fetchGarcons();
+  };
+
+
   useEffect(() => {
     fetchGarcons();
   }, []);
 
   return (
-    <GarconsContext.Provider value={{ garcons, fetchGarcons, saveGarcom, deleteGarcom }}>
+    <GarconsContext.Provider value={{ garcons, fetchGarcons, saveGarcom, deleteGarcom, sincronizarHistoricoAtendimentos }}>
       {children}
     </GarconsContext.Provider>
   );

@@ -21,7 +21,6 @@ import { toast } from "react-toastify";
 import { usePizzas } from "../context/PizzasContext";
 import { usePedidos } from "../context/PedidosContext";
 import { useGarcons } from "../context/GarconsContext";
-import Pagamento from "../components/Pagamento"; // ✅ Importando Pagamento
 
 const Pedido = () => {
   const navigate = useNavigate();
@@ -32,7 +31,6 @@ const Pedido = () => {
   const [nomeCliente, setNomeCliente] = useState("");
   const [retirarTaxaServico, setRetirarTaxaServico] = useState(false);
   const [garcomSelecionado, setGarcomSelecionado] = useState("");
-  const [mostrarPagamento, setMostrarPagamento] = useState(false); // ✅ Estado para controlar Pagamento
 
   const { garcons } = useGarcons();
   const garconsDisponiveis = garcons.filter((g) => g.status === "disponível");
@@ -74,8 +72,7 @@ const Pedido = () => {
   const taxaEntrega = tipoEntrega === "entrega" ? subTotal * 0.2 : 0;
   const totalFinal = subTotal + taxaServico + taxaEntrega;
 
-  // ✅ Valida antes de mostrar Pagamento
-  const handleValidarPedido = () => {
+  const handleValidarPedido = async () => {
     if (!carrinho.length) {
       toast.error("Seu carrinho está vazio!", { autoClose: 3000 });
       return;
@@ -97,11 +94,6 @@ const Pedido = () => {
       return;
     }
 
-    setMostrarPagamento(true);
-  };
-
-
-  const handleSalvarPedido = () => {
     const novoPedido = {
       cliente: nomeCliente,
       usuarioId: 2,
@@ -127,10 +119,26 @@ const Pedido = () => {
       const nextId = String(
         pedidos.length ? Math.max(...pedidos.map((p) => Number(p.id))) + 1 : 1
       );
-      createPedido(nextId, novoPedido);
+      await createPedido(nextId, novoPedido);
+
+      if (tipoEntrega === "mesa") {
+      const historicoAtendimentos = JSON.parse(localStorage.getItem("historicoAtendimentos")) || [];
+      historicoAtendimentos.push({
+        idAtendimento: String(historicoAtendimentos.length + 1),
+        numeroMesa: numeroMesa,
+        idPedido: nextId,
+        valorGorjeta: taxaServico,
+        avaliacao: null,
+        observacao: null,
+        dataHoraAtendimento: new Date().toISOString(),
+        idGarcom: garcomSelecionado,
+      });
+      localStorage.setItem("historicoAtendimentos", JSON.stringify(historicoAtendimentos));
+    } 
 
       localStorage.removeItem("carrinho");
       toast.success("Pedido realizado com sucesso!", { autoClose: 3000 });
+
       navigate("/pages/cardapio");
     } catch (err) {
       console.error("Erro ao salvar pedido:", err);
@@ -145,21 +153,16 @@ const Pedido = () => {
   return (
     <Box sx={{ p: 2, maxWidth: 800, mx: "auto" }}>
       {pedidoAtivo ? (
-        <DetalhesPedido pedido={pedidoAtivo} onClose={() => {}} modo="cliente" />
+        <DetalhesPedido 
+          pedido={pedidoAtivo} 
+          onClose={() => {}} 
+          modo="cliente"
+        />
       ) : carrinho.length === 0 ? (
         <Typography sx={{ textAlign: "center", p: 3 }}>
           Nenhum pedido encontrado.
         </Typography>
-      ) : mostrarPagamento ? (
-        <Pagamento
-          carrinho={carrinho}
-          total={totalFinal}
-          limparCarrinho={() => {
-            setCarrinho([]);
-            handleSalvarPedido();
-          }}
-        />
-      ) : (
+      ) :  (
         <Paper sx={{ p: 2, textAlign: "left" }}>
           <Typography variant="h6" gutterBottom>
             Meu Pedido
@@ -306,7 +309,7 @@ const Pedido = () => {
             sx={{ mt: 2 }}
             onClick={handleValidarPedido}
           >
-            Continuar para Pagamento
+            Finalizar Pedido
           </Button>
         </Paper>
       )}

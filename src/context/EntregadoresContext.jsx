@@ -37,9 +37,9 @@ export function EntregadoresProvider({ children }) {
           body: JSON.stringify({ ...data, id: editing.id })
         });
       } else {
-        const ano = new Date().getFullYear().toString().slice(-2); // "25"
+        const ano = new Date().getFullYear().toString().slice(-2);
         const nextIdNumber = entregadores.length
-        ? Math.max(...entregadores.map(e => Number(e.id.slice(3)))) + 1 // pega só a parte numérica após 'E25-'
+        ? Math.max(...entregadores.map(e => Number(e.id.slice(3)))) + 1
         : 1;
 
         const nextId = `E${ano}${nextIdNumber}`;
@@ -57,12 +57,48 @@ export function EntregadoresProvider({ children }) {
     }
   };
 
+  const sincronizarHistoricoEntregas = async () => {
+    const historico = JSON.parse(localStorage.getItem("historicoEntregas")) || [];
+
+    for (const entrega of historico) {
+      const entregadorId = entrega.idEntregador; 
+      
+      if (!entregadorId) {
+        console.error("ID do entregador não encontrado na entrega:", entrega);
+        continue;
+      }
+      
+      try {
+        // buscar entregador atual no db.json
+        const res = await fetch(`${baseUrl}/${entregadorId}`);
+        const entregador = await res.json();
+        
+        // adicionar novo histórico
+        const historicoAtualizado = [...(entregador.historicoEntregas || []), entrega];
+
+        // atualizar entregador no db.json
+        await fetch(`${baseUrl}/${entregadorId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ historicoEntregas: historicoAtualizado }),
+        });
+        
+      } catch (error) {
+        console.error(`Erro ao sincronizar entrega para o entregador ${entregadorId}:`, error);
+        toast.error("Erro ao sincronizar histórico de entregas.");
+      }
+    }
+
+    localStorage.removeItem("historicoEntregas");
+    fetchEntregadores();
+  };
+
   useEffect(() => {
     fetchEntregadores();
   }, []);
 
   return (
-    <EntregadoresContext.Provider value={{ entregadores, fetchEntregadores, saveEntregador, deleteEntregador }}>
+    <EntregadoresContext.Provider value={{ entregadores, fetchEntregadores, saveEntregador, deleteEntregador, sincronizarHistoricoEntregas }}>
       {children}
     </EntregadoresContext.Provider>
   );

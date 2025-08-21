@@ -26,7 +26,28 @@
       "foto": "https://photos.google.com/search/CghLbGlzc2lhIBopCidBRjFRaXBNY2NNNEM2aUJVZWNQNDJJZUFRcmpOWGNJWEpwUFMyeFUiMRIvCi0KKwopEidBRjFRaXBNY2NNNEM2aUJVZWNQNDJJZUFRcmpOWGNJWEpwUFMyeFUo36bciIsz/photo/AF1QipO1KlxU8BELIAFCUqdvGwNk96COxa9yWyv-tTS6",
       "telefone": "(92)99218-2337",
       "status": "disponível",
-      "historicoAtendimentos": []
+      "historicoAtendimentos": [
+        {
+          "idAtendimento": "1",
+          "numeroMesa": "1",
+          "idPedido": "20",
+          "valorGorjeta": 0,
+          "avaliacao": 5,
+          "observacao": "Perfeito!",
+          "dataHoraAtendimento": "2025-08-21T04:46:53.563Z",
+          "idGarcom": "G2502"
+        },
+        {
+          "idAtendimento": "1",
+          "numeroMesa": "3",
+          "idPedido": "21",
+          "valorGorjeta": 4.98,
+          "avaliacao": null,
+          "observacao": null,
+          "dataHoraAtendimento": "2025-08-21T04:57:00.616Z",
+          "idGarcom": "G2502"
+        }
+      ]
     }
   ]
 }

@@ -14,11 +14,13 @@ import {
   FormControl,
   InputLabel
 } from "@mui/material";
+import { toast } from 'react-toastify';
 
 import { usePizzas } from "../context/PizzasContext";
 import { usePedidos } from "../context/PedidosContext";
 import { useEntregadores } from "../context/EntregadoresContext";
 import { useGarcons } from "../context/GarconsContext";
+import Pagamento from "./Pagamento"; 
 
 const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
   const theme = useTheme();
@@ -28,6 +30,7 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
   const [entregadorSelecionado, setEntregadorSelecionado] = useState("");
   const entregadoresDisponiveis = entregadores.filter(e => e.status === "disponível");
   const { garcons } = useGarcons();
+  const [mostrarPagamento, setMostrarPagamento] = useState(false);
 
   if (!pedido) {
     return (
@@ -69,6 +72,10 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
     } else if (pedido.status === "Servir") {
       novoStatus = "Pagamento pendente";
     } else if (pedido.status === "Entregar") {
+      if (!entregadorSelecionado) {
+        toast.error("Por favor, selecione um entregador.");
+        return;
+      }
       novoStatus = "Saído para entrega";
     }
 
@@ -77,26 +84,42 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
         pedido.tipoEntrega === "entrega" && entregadorSelecionado
           ? { entregador: entregadorSelecionado }
           : {};
+      
+      if (pedido.tipoEntrega === "entrega" && novoStatus === "Saído para entrega") {
+        const historicoEntregas = JSON.parse(localStorage.getItem("historicoEntregas")) || [];
+        historicoEntregas.push({
+          idEntrega: String(historicoEntregas.length + 1),
+          endereco: pedido.endereco,
+          idPedido: pedido.id,
+          valorEntrega: Number(pedido.total) * 0.2,
+          dataHoraSaida: new Date().toISOString(),
+          dataHoraEntrega: null,
+          avaliacao: null,
+          observacao: null,
+          idEntregador: entregadorSelecionado,
+        });
+        localStorage.setItem("historicoEntregas", JSON.stringify(historicoEntregas));
+      }
 
       await updatePedidoStatus(pedido.id, novoStatus, extraData);
       onClose && onClose();
     }
   };
 
-  const handleClienteAcao = async () => {
-    let novoStatus = pedido.status;
-
-    if (pedido.status === "Saído para entrega") {
-      novoStatus = "Finalizado";
-    } else if (pedido.status === "Pagamento pendente") {
-      novoStatus = "Finalizado";
-    }
-
-    if (novoStatus !== pedido.status) {
-      await updatePedidoStatus(pedido.id, novoStatus);
-      onClose && onClose();
-    }
-  };
+  if (mostrarPagamento) {
+    return (
+      <Pagamento
+        carrinho={pedido.itens}
+        total={Number(pedido.total)}
+        pedidoId={pedido.id}
+        limparCarrinho={() => {
+          localStorage.removeItem("carrinho");
+          onClose && onClose();
+        }}
+        onClose={onClose}
+      />
+    );
+  }
 
   return (
     <Card sx={{ borderRadius: 3, width: "100%" }}>
@@ -206,8 +229,18 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 2, backgroundColor: theme.palette.success.main, color: "white", fontWeight: "bold" }}
-            onClick={handleClienteAcao}
+            sx={{ mt: 2, backgroundColor: theme.palette.success.main, color: "white" }}
+            onClick={async () => {
+              const historicoEntregas = JSON.parse(localStorage.getItem("historicoEntregas")) || [];
+              const historicoAtualizado = historicoEntregas.map(item =>
+                item.idPedido === pedido.id
+                  ? { ...item, dataHoraEntrega: new Date().toISOString() }
+                  : item
+              );
+              localStorage.setItem("historicoEntregas", JSON.stringify(historicoAtualizado));
+              await updatePedidoStatus(pedido.id, "Pagamento pendente");
+              onClose && onClose();
+            }}
           >
             Confirmar Entrega
           </Button>
@@ -217,8 +250,8 @@ const DetalhesPedido = ({ pedido, onClose, modo = "funcionario" }) => {
           <Button
             fullWidth
             variant="contained"
-            sx={{ mt: 2, backgroundColor: theme.palette.info.main, color: "white", fontWeight: "bold" }}
-            onClick={handleClienteAcao}
+            sx={{ mt: 2, backgroundColor: theme.palette.info.main, color: "white" }}
+            onClick={() => setMostrarPagamento(true)} 
           >
             Realizar Pagamento
           </Button>

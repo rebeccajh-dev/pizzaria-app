@@ -430,7 +430,7 @@
       "entregador": null,
       "garcom": "G2501",
       "total": 223.32,
-      "status": "Novo"
+      "status": "Pagamento pendente"
     },
     {
       "id": "14",
@@ -570,7 +570,7 @@
       "status": "Finalizado"
     },
     {
-      "id": "17",
+      "id": "19",
       "cliente": "Julia",
       "usuarioId": 2,
       "itens": [
@@ -608,6 +608,93 @@
       "entregador": null,
       "garcom": "G2502",
       "total": "136.68",
+      "status": "Finalizado"
+    },
+    {
+      "id": "18",
+      "cliente": "Klissia Martins",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "14",
+          "nome": "Churros",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "48.00",
+          "quantidade": 1,
+          "total": 48
+        },
+        {
+          "pizzaId": "2",
+          "nome": "Calabresa",
+          "observacao": [],
+          "tamanho": "Pequena",
+          "preco": "36.50",
+          "quantidade": 1,
+          "total": 36.5
+        }
+      ],
+      "tipoEntrega": "entrega",
+      "numeroMesa": null,
+      "endereco": "Rua 2, casa 34, Serra",
+      "entregador": "E2502",
+      "garcom": null,
+      "total": "101.40",
+      "status": "Finalizado"
+    },
+    {
+      "id": "20",
+      "cliente": "Klissia Martins",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "2",
+          "nome": "Calabresa",
+          "observacao": [],
+          "tamanho": "Média",
+          "preco": "43.80",
+          "quantidade": 1,
+          "total": 43.8
+        },
+        {
+          "pizzaId": "5",
+          "nome": "Chocolate com Morango",
+          "observacao": "Sem granulado",
+          "tamanho": "Média",
+          "preco": "41.88",
+          "quantidade": 1,
+          "total": 41.879999999999995
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "1",
+      "endereco": null,
+      "entregador": null,
+      "garcom": "G2502",
+      "total": "94.25",
+      "status": "Finalizado"
+    },
+    {
+      "id": "21",
+      "cliente": "Juliana",
+      "usuarioId": 2,
+      "itens": [
+        {
+          "pizzaId": "9",
+          "nome": "Portuguesa",
+          "observacao": "sem cebola",
+          "tamanho": "Média",
+          "preco": "49.80",
+          "quantidade": 1,
+          "total": 49.8
+        }
+      ],
+      "tipoEntrega": "mesa",
+      "numeroMesa": "3",
+      "endereco": null,
+      "entregador": null,
+      "garcom": "G2502",
+      "total": "54.78",
       "status": "Finalizado"
     }
   ]

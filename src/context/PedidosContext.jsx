@@ -60,13 +60,14 @@ export function PedidosProvider({ children }) {
     }
   }
 
+  const getPedidoById = (id) => pedidos.find(p => p.id === id);
 
   useEffect(() => {
     fetchPedidos();
   }, []);
 
   return (
-    <PedidosContext.Provider value={{ pedidos, fetchPedidos, updatePedidoStatus, createPedido }}>
+    <PedidosContext.Provider value={{ pedidos, fetchPedidos, updatePedidoStatus, createPedido, getPedidoById }}>
       {children}
     </PedidosContext.Provider>
   );

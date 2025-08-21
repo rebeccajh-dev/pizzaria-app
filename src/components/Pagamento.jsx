@@ -10,18 +10,32 @@ import {
   Radio,
   FormLabel,
   FormControl,
+  MenuItem,
+  Rating
 } from "@mui/material";
 import { toast } from "react-toastify";
 
-const Pagamento = ({ carrinho, total, limparCarrinho }) => {
+import { useEntregadores } from "../context/EntregadoresContext";
+import { useGarcons } from "../context/GarconsContext";
+import { usePedidos } from "../context/PedidosContext";
+
+const Pagamento = ({ carrinho, total, pedidoId, limparCarrinho, onClose }) => {
   const [formaPagamento, setFormaPagamento] = useState("pix");
   const [nomeCartao, setNomeCartao] = useState("");
   const [numeroCartao, setNumeroCartao] = useState("");
   const [cvv, setCvv] = useState("");
+  const [avaliacao, setAvaliacao] = useState(0);
+  const [observacao, setObservacao] = useState("");
+ 
 
-  const handleFinalizarCompra = (event) => {
+  const { sincronizarHistoricoEntregas } = useEntregadores();
+  const { sincronizarHistoricoAtendimentos } = useGarcons();
+  const { updatePedidoStatus, getPedidoById } = usePedidos();
+
+  const handleFinalizarCompra = async (event) => {
     event.preventDefault();
 
+    // Validação do cartão
     if (
       (formaPagamento === "credito" || formaPagamento === "debito") &&
       (!nomeCartao || !numeroCartao || !cvv)
@@ -30,20 +44,52 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
       return;
     }
 
+    const pedido = getPedidoById(pedidoId);
+    if (!pedido) {
+      toast.error("Pedido não encontrado!");
+      return;
+    }
+
+    await updatePedidoStatus(pedidoId, "Finalizado");
+    
+    if (pedido.tipoEntrega === "entrega"){
+      const historicoEntregaAtualizado = JSON.parse(localStorage.getItem("historicoEntregas")) || [];
+      const historicoEntregaComAvaliacao = historicoEntregaAtualizado.map(item => 
+        item.idPedido === pedidoId
+        ? { ...item, avaliacao: avaliacao, observacao: observacao }
+        : item
+      );
+      localStorage.setItem("historicoEntregas", JSON.stringify(historicoEntregaComAvaliacao));
+      await sincronizarHistoricoEntregas();
+    }
+    
+    if(pedido.tipoEntrega === "mesa"){
+      const historicoAtendimentoAtualizado = JSON.parse(localStorage.getItem("historicoAtendimentos")) || [];
+      const historicoAtendimentoComAvaliacao = historicoAtendimentoAtualizado.map(item => 
+          item.idPedido === pedidoId
+          ? { ...item, avaliacao: parseInt(avaliacao), observacao: observacao }
+          : item
+        );
+        
+      localStorage.setItem("historicoAtendimentos", JSON.stringify(historicoAtendimentoComAvaliacao));
+      await sincronizarHistoricoAtendimentos();
+    }
+
     toast.success(
       `Compra de R$ ${total.toFixed(2)} realizada com sucesso via ${formaPagamento.toUpperCase()}`
     );
 
-    console.log("Compra finalizada:", {
-      itens: carrinho,
-      total,
-      formaPagamento,
-      nomeCartao,
-      numeroCartao,
-      cvv,
-    });
-
+    // Limpar carrinho e estados
     limparCarrinho();
+    setNomeCartao("");
+    setNumeroCartao("");
+    setCvv("");
+    setAvaliacao(0);
+    setObservacao("");
+    setFormaPagamento("pix");
+    
+    // Fecha o modal de pagamento
+    onClose();
   };
 
   return (
@@ -142,7 +188,6 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
               value={numeroCartao}
               onChange={(e) => setNumeroCartao(e.target.value)}
               required
-              inputProps={{ maxLength: 16 }}
             />
             <TextField
               label="CVV"
@@ -153,6 +198,27 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
             />
           </Box>
         )}
+
+        <Typography component="legend" sx={{ mt: 2 }}>Avaliação</Typography>
+        <Rating
+          name="avaliacao"
+          value={avaliacao}
+          onChange={(event, newValue) => {
+            setAvaliacao(newValue);
+          }}
+          precision={1}
+        />
+
+        <TextField
+          label="Observação"
+          multiline
+          rows={3}
+          value={observacao}
+          onChange={(e) => setObservacao(e.target.value)}
+          fullWidth
+          sx={{ mt: 2 }}
+        />
+
 
         <Button type="submit" variant="contained" color="error" fullWidth>
           Pagar Agora

@@ -27,7 +27,30 @@
       "foto": "https://photos.google.com/search/CghLbGlzc2lhIBopCidBRjFRaXBNY2NNNEM2aUJVZWNQNDJJZUFRcmpOWGNJWEpwUFMyeFUiMRIvCi0KKwopEidBRjFRaXBNY2NNNEM2aUJVZWNQNDJJZUFRcmpOWGNJWEpwUFMyeFUo36bciIsz/photo/AF1QipO1KlxU8BELIAFCUqdvGwNk96COxa9yWyv-tTS6",
       "telefone": "(92)99218-2337",
       "status": "disponível",
-      "historicoEntregas": []
+      "historicoEntregas": [
+        {
+          "idEntrega": "2",
+          "endereco": "Rua 23, casa 11, Castelo Branco",
+          "idPedido": "19",
+          "valorEntrega": 29.564,
+          "dataHoraSaida": "2025-08-21T04:12:04.751Z",
+          "dataHoraEntrega": "2025-08-21T04:12:21.732Z",
+          "avaliacao": 4,
+          "observacao": null,
+          "idEntregador": "E2502"
+        },
+        {
+          "idEntrega": "4",
+          "endereco": "Rua 2, casa 34, Serra",
+          "idPedido": "18",
+          "valorEntrega": 20.28,
+          "dataHoraSaida": "2025-08-21T04:27:41.904Z",
+          "dataHoraEntrega": "2025-08-21T04:27:59.112Z",
+          "avaliacao": 5,
+          "observacao": null,
+          "idEntregador": "E2502"
+        }
+      ]
     }
   ]
 }

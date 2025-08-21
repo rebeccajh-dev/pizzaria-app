@@ -129,6 +129,7 @@ export default function ColorInputExample() {
       {/* upload logo */}
       <Button
         variant="outlined"
+
         component="label"
         sx={{
           width: "255px",
