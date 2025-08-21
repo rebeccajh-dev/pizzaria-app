@@ -40,7 +40,8 @@ const ImageCarousel = () => {
       quantidade: 1,
       preco: promo.preco,
     };
-
+    
+    //adiciona ao carrinho
     carrinho.push(novoItem);
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
 
@@ -49,7 +50,7 @@ const ImageCarousel = () => {
       { toastId: `promo-toast-${promo.ids.join("-")}` }
     );
   };
-
+  //configurações do carrossel
   const settings = {
     dots: true,
     infinite: true,

@@ -24,6 +24,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  // carrega os usuarios do json
   useEffect(() => {
     const carregarUsuarios = async () => {
       try {
@@ -79,9 +80,9 @@ const Login = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column", // para organizar verticalmente
-        minHeight: "90vh", // altura total
-        width: "100%", // largura total
+        flexDirection: "column",
+        minHeight: "90vh",
+        width: "100%",
         backgroundColor: theme.palette.quartiary.main
       }}
     >

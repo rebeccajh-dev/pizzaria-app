@@ -1,13 +1,8 @@
 import React from "react";
-import { Card, CardContent, Typography, Button, Box, Chip } from "@mui/material";
+import { Card, CardContent, Typography, Button, Box, Chip, useTheme } from "@mui/material";
 import { usePedidos } from "../context/PedidosContext";
 import { InfoOutlined } from "@mui/icons-material";
 
-
-const statusColors = {
-  mesa: "error",
-  entrega: "success",
-};
 
 const actionColors = {
   Novo: "rgba(61, 122, 255, 1)",
@@ -18,6 +13,12 @@ const actionColors = {
 };
 
 export default function OrderCard({ pedido, onDetalhesClick }) {
+  const theme = useTheme();
+
+const statusColors = {
+  mesa: theme.palette.error.main,
+  entrega: theme.palette.success.main,
+};
   const { updatePedidoStatus } = usePedidos();
 
   const mudarStatusEDetalhes = async (pedido) => {

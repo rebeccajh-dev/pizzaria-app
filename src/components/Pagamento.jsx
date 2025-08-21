@@ -19,6 +19,8 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
   const [numeroCartao, setNumeroCartao] = useState("");
   const [cvv, setCvv] = useState("");
 
+
+  //processo de validação da compra
   const handleFinalizarCompra = (event) => {
     event.preventDefault();
 
@@ -42,7 +44,7 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
       numeroCartao,
       cvv,
     });
-
+    //limpa o carrinho após finalizar
     limparCarrinho();
   };
 
@@ -61,7 +63,10 @@ const Pagamento = ({ carrinho, total, limparCarrinho }) => {
 
       <form onSubmit={handleFinalizarCompra}>
         <FormControl component="fieldset" sx={{ mb: 2 }}>
-          <FormLabel component="legend" color="red" >Forma de Pagamento</FormLabel>
+          <FormLabel
+          sx={(theme) => ({
+            color: theme.palette.secondary.main,})}
+            >Forma de Pagamento</FormLabel>
           <RadioGroup
             value={formaPagamento}
             onChange={(e) => setFormaPagamento(e.target.value)}
