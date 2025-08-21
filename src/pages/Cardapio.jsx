@@ -41,6 +41,7 @@ const Cardapio = () => {
     });
   };
 
+  // pega o tipo da pizza e filtra para separar o cardapio
   const pizzasFiltradas =
     filtrosAtivos.length > 0
       ? pizzas.filter((pizza) =>
@@ -51,7 +52,8 @@ const Cardapio = () => {
           )
         )
       : pizzas;
-
+    
+    //caso não tenha um usuário logado ou não seja parte do sistema, ele vai para a pag notfound
     if (usuarioLogado === null) {
   return <Navigate to="/notfound" replace />;
 }

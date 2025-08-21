@@ -74,8 +74,18 @@ const TabelaEntregadores = ({ onSelecionarHistorico }) => {
                     </TableCell>
                     <TableCell>
                         <CardActions>
-                            <Button variant="contained"  color="success" onClick={() => handleOpenEdit(entregador)}><EditOutlined fontSize="small" /></Button>
-                            <Button variant="contained"  color="error" onClick={() => handleDelete(entregador.id)}><DeleteOutline fontSize="small" /></Button>
+                            <Button variant="contained" onClick={() => handleOpenEdit(entregador)}
+                            sx={(theme) => ({
+                                background: theme.palette.success.main,
+                                color: theme.palette.primary.main,})}>
+                            <EditOutlined fontSize="small" />
+                            </Button>
+                            <Button variant="contained" onClick={() => handleDelete(entregador.id)}
+                            sx={(theme) => ({
+                                background: theme.palette.error.main,
+                                color: theme.palette.primary.main,})}>
+                            <DeleteOutline fontSize="small" />
+                            </Button>
                         </CardActions>
                     </TableCell>
                     </TableRow>

@@ -76,8 +76,18 @@ const TabelaGarcons = ({ onSelecionarHistorico }) => {
                     </TableCell>
                     <TableCell>
                         <CardActions>
-                            <Button variant="contained"  color="success" onClick={() => handleOpenEdit(garcom)}><EditOutlined fontSize="small" /></Button>
-                            <Button variant="contained"  color="error" onClick={() => handleDelete(garcom.id)}><DeleteOutline fontSize="small" /></Button>
+                            <Button variant="contained" onClick={() => handleOpenEdit(garcom)}
+                            sx={(theme) => ({
+                                background: theme.palette.success.main,
+                                color: theme.palette.primary.main,})}>
+                            <EditOutlined fontSize="small" />
+                            </Button>
+                            <Button variant="contained" onClick={() => handleDelete(garcom.id)}
+                            sx={(theme) => ({
+                                background: theme.palette.error.main,
+                                color: theme.palette.primary.main,})}>
+                            <DeleteOutline fontSize="small" />
+                            </Button>
                         </CardActions>
                     </TableCell>
                     </TableRow>

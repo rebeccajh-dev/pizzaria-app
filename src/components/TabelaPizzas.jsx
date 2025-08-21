@@ -72,8 +72,18 @@ const TabelaPizzas = () => {
                     <TableCell>{pizza.categoria}</TableCell>
                     <TableCell>
                         <CardActions>
-                        <Button variant="contained"  color="success" onClick={() => handleOpenEdit(pizza)}><EditOutlined fontSize="small" /></Button>
-                        <Button variant="contained"  color="error" onClick={() => handleDelete(pizza.id)}><DeleteOutline fontSize="small" /></Button>
+                        <Button variant="contained" onClick={() => handleOpenEdit(pizza)}
+                            sx={(theme) => ({
+                                background: theme.palette.sextatory.main,
+                                color: theme.palette.primary.main,})}>
+                            <EditOutlined fontSize="small" />
+                            </Button>
+                            <Button variant="contained" onClick={() => handleDelete(pizza.id)}
+                            sx={(theme) => ({
+                                background: theme.palette.secondary.main,
+                                color: theme.palette.primary.main,})}>
+                            <DeleteOutline fontSize="small" />
+                            </Button>
                         </CardActions>
                     </TableCell>
                     </TableRow>

@@ -61,7 +61,8 @@ const EntregadoresDialog = ({ open, onClose, onSave, editing }) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle color="success">
+      <DialogTitle sx={(theme) => ({
+                      color: theme.palette.sextatory.main,})}>
         {editing ? "Editar Entregador" : "Novo Entregador"}
       </DialogTitle>
       <form onSubmit={handleSubmit(submit)}>
@@ -114,7 +115,10 @@ const EntregadoresDialog = ({ open, onClose, onSave, editing }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose} variant="outlined" color="error">Cancelar</Button>
-          <Button type="submit" variant="contained" color="success">
+          <Button type="submit" variant="contained"
+                    sx={(theme) => ({
+                      background: theme.palette.success.main,
+                      color: theme.palette.primary.main,})}>
             {editing ? "Salvar" : "Criar"}
           </Button>
         </DialogActions>

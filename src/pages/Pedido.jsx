@@ -302,15 +302,15 @@ const Pedido = () => {
             </Typography>
           </Grid>
 
-          <Button
-            variant="contained"
-            color="success"
-            fullWidth
-            sx={{ mt: 2 }}
-            onClick={handleValidarPedido}
-          >
-            Finalizar Pedido
+          <Button fullWidth onClick={handleValidarPedido}
+            sx={(theme) => ({
+                background: theme.palette.success.main,
+                color: theme.palette.primary.main,
+                mt: 2,
+              })}>
+              Continuar para pagamento
           </Button>
+
         </Paper>
       )}
     </Box>

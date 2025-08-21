@@ -49,7 +49,8 @@ const PizzaDialog = ({ open, onClose, onSave, editing }) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle color="success" >{editing ? "Editar Pizza" : "Nova Pizza"}</DialogTitle>
+      <DialogTitle sx={(theme) => ({
+                      color: theme.palette.sextatory.main,})}>{editing ? "Editar Pizza" : "Nova Pizza"}</DialogTitle>
       <form onSubmit={handleSubmit(submit)}>
         <DialogContent>
           <Controller name="nome" control={control} render={({ field, fieldState }) => (

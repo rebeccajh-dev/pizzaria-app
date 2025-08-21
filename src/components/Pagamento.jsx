@@ -107,7 +107,10 @@ const Pagamento = ({ carrinho, total, pedidoId, limparCarrinho, onClose }) => {
 
       <form onSubmit={handleFinalizarCompra}>
         <FormControl component="fieldset" sx={{ mb: 2 }}>
-          <FormLabel component="legend" color="red" >Forma de Pagamento</FormLabel>
+          <FormLabel
+          sx={(theme) => ({
+            color: theme.palette.secondary.main,})}
+            >Forma de Pagamento</FormLabel>
           <RadioGroup
             value={formaPagamento}
             onChange={(e) => setFormaPagamento(e.target.value)}
