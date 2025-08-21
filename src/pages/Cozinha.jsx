@@ -48,11 +48,11 @@ const Cozinha = () => {
         <Tabs
           value={tab}
           onChange={(e, newValue) => setTab(newValue)}
+          textColor="error"
           sx={{
-            color: theme.palette.secondary.main,
             "& .MuiTab-root": { color: theme.palette.sextatory.main },
-            "& .Mui-selected": { fontWeight:"bold",color: theme.palette.secondary.main },
-            "& .MuiTabs-indicator": { backgroundColor: theme.palette.secondary.main },
+            "& .Mui-selected": { color: theme.palette.secondary.main, fontWeight: "bold" },
+            "& .MuiTabs-indicator": { backgroundColor: theme.palette.sextatory.main },
           }}
         >
           <Tab label="Tudo" />

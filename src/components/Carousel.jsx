@@ -72,12 +72,9 @@ const ImageCarousel = () => {
           <Card onClick={() => handleClickPromo(promo)} sx={{ cursor: "pointer", borderRadius: 2 }}>
             <CardMedia
               component="img"
-              height="200"
               image={promo.imagem}
               alt={`Promoção ${index + 1}`}
             />
-            <Box p={1}>
-            </Box>
           </Card>
         </Box>
       ))}
